@@ -2,11 +2,14 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-
+using WebProgramlamaOdev.ModelDtos;
 namespace WebProgramlamaOdev.Models
 {
     public class ApplicationUser : IdentityUser
     {
+
+
+
 
         [StringLength(50)]
         public string FirstName { get; set; }
@@ -35,7 +38,12 @@ namespace WebProgramlamaOdev.Models
         public Trainer Trainer { get; set; }
         public Member Member { get; set; }
 
+        //Constructors
+        
+        ApplicationUser(ApplicationUserDto )
+        {
 
+        }
 
 
     }

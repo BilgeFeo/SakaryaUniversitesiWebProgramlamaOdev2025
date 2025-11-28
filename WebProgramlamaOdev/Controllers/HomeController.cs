@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaOdev.Models;
+using WebProgramlamaOdev.ModelDtos;
+
 
 namespace WebProgramlamaOdev.Controllers
 {
@@ -21,6 +23,23 @@ namespace WebProgramlamaOdev.Controllers
         public IActionResult CreateAccount()
         {
             return View();
+        }
+
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public string AccountCreationSuccesful(ApplicaitonUserDto applicationUserDto)
+        {
+
+            if(ModelState.IsValid)
+            {
+                return applicationUserDto.FirstName + " " +applicationUserDto.LastName+" "+ applicationUserDto.Email+" "+applicationUserDto.Password+" "+ applicationUserDto.Phone;
+            }
+
+            else
+            {
+                return "Hata";
+            }
+
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -31,3 +31,4 @@ C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProg
 C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProgramlamaOdev\obj\Debug\net8.0\WebProgramlamaOdev.pdb
 C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProgramlamaOdev\obj\Debug\net8.0\WebProgramlamaOdev.genruntimeconfig.cache
 C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProgramlamaOdev\obj\Debug\net8.0\ref\WebProgramlamaOdev.dll
+C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProgramlamaOdev\obj\Debug\net8.0\WebProgramlamaOdev.sourcelink.json
