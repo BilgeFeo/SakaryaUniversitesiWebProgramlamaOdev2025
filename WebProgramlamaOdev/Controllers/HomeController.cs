@@ -1,19 +1,15 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaOdev.Models;
 using WebProgramlamaOdev.ModelDtos;
-
-
-
 
 namespace WebProgramlamaOdev.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
         public List<ApplicationUser> ApplicationUserListTemp = new List<ApplicationUser>();
-
+        public Dictionary<string, ApplicationUser> SavedUsers = new Dictionary<string, ApplicationUser>();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -25,37 +21,73 @@ namespace WebProgramlamaOdev.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult CreateAccount()
         {
-            
             return View();
         }
 
-        [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult AccountCreationSuccesful(ApplicationUserDto applicationUserDto)
+        [ValidateAntiForgeryToken]
+        public IActionResult TriesAccountCreation(ApplicationUserDto applicationUserDto)
         {
-
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                  
-                ApplicationUserListTemp.Add(new ApplicationUser(applicationUserDto));
-                TempData["Name"] = ApplicationUserListTemp[0].FullName;
+                ApplicationUser AppUserTemp = new ApplicationUser(applicationUserDto);
+                ApplicationUserListTemp.Add(AppUserTemp);
+                TempData["Name"] = applicationUserDto.FirstName + " " + applicationUserDto.LastName;
+                SavedUsers.Add(applicationUserDto.Email, AppUserTemp);
                 return View();
             }
-
             else
             {
-                ViewBag.GeneralError = "Hata: Lutfen asagidaki alanlardaki bilgileri kontrol edip tekrar deneyiniz.";
-                return RedirectToAction("CreateAccount",applicationUserDto);
+                // Hata mesajını ViewBag ile gönder
+                ViewBag.GeneralError = "Lutfen asagidaki alanları kontrol edip tekrar deneyiniz.";
+
+                // Aynı view'a geri dön (CreateAccount view'ı)
+                return View("CreateAccount", applicationUserDto);
             }
-            
         }
-        
+
+        [HttpGet]
+        public IActionResult RegistrationSuccess()
+        {
+            if (TempData["Name"] == null)
+            {
+                return RedirectToAction("Index");
+            }
+            return View("Index");
+        }
+
+        [HttpPost]
+
+        public IActionResult UserLoginAttempt(LoginRequestDto loginRequestDto)
+        {
+
+
+
+            if (ModelState.IsValid)
+            {
+                if (SavedUsers.TryGetValue(loginRequestDto.Email, out ApplicationUser CurrentUser))
+                {
+                    if (CurrentUser.Password == loginRequestDto.Password) {
+                        
+                    }
+                    
+                }
+
+               return View();
+
+            }
+             
+            return RedirectToAction("Index");
+
+           
+        } 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+            {
+                return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
     }
 }

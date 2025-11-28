@@ -1,7 +1,6 @@
 ﻿@using WebProgramlamaOdev.ModelDtos
 @model ApplicationUserDto
 
-
 @{
     Layout = null;
 }
@@ -170,14 +169,25 @@
             border: none;
             padding: 12px 15px;
             margin-bottom: 20px;
+        }
+
+        .alert-danger {
             background: #ffebee;
             color: #c62828;
+            display: flex;
+            align-items: center;
         }
+
+            .alert-danger i {
+                margin-right: 10px;
+                font-size: 18px;
+            }
 
         .text-danger {
             font-size: 12px;
             margin-top: 5px;
             color: #d32f2f;
+            display: block;
         }
 
         @@media (max-width: 576px) {
@@ -207,37 +217,63 @@
                 <p class="register-subtitle">Fitness Center'a katılın</p>
             </div>
 
-            <form asp-controller="Home" asp-action="AccountCreationSuccesful" method="post">
+            @* HATA MESAJI - ViewBag'den gelir *@
+            @if (ViewBag.GeneralError != null)
+            {
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span>@ViewBag.GeneralError</span>
+                </div>
+            }
+
+            @* VEYA ModelState hatalarını göster *@
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <div>
+                        <strong>Lütfen aşağıdaki alanları kontrol ediniz:</strong>
+                        <ul style="margin: 5px 0 0 20px; padding: 0;">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+            <form asp-controller="Home" asp-action="TriesAccountCreation" method="post">
                 @Html.AntiForgeryToken()
 
                 <div class="row mb-3">
                     <div class="col-6">
-                        <label asp-for="FirstName" class="form-label"></label>
+                        <label asp-for="FirstName" class="form-label">Ad</label>
                         <input type="text" asp-for="FirstName" class="form-control" placeholder="Adınız" />
                         <span asp-validation-for="FirstName" class="text-danger"></span>
                     </div>
                     <div class="col-6">
-                        <label asp-for="LastName" class="form-label"></label>
+                        <label asp-for="LastName" class="form-label">Soyad</label>
                         <input type="text" asp-for="LastName" class="form-control" placeholder="Soyadınız" />
                         <span asp-validation-for="LastName" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="Email" class="form-label"></label>
+                    <label asp-for="Email" class="form-label">Email</label>
                     <input type="email" asp-for="Email" class="form-control" placeholder="ornek@sakarya.edu.tr" />
                     <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
-                    <label asp-for="PhoneNumber" class="form-label"></label>
-                    <input tpye="text" asp-for="PhoneNumber" class="form-control" placeholder="0555 555 55 55" />
+                    <label asp-for="PhoneNumber" class="form-label">Telefon</label>
+                    <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="0555 555 55 55" />
                     <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                 </div>
 
                 <div class="mb-4">
-                    <label asp-for="Password" class="form-label"></label>
-                    <input asp-for="Password" class="form-control" placeholder="••••••••" type = "password"/>
+                    <label asp-for="Password" class="form-label">Şifre</label>
+                    <input asp-for="Password" class="form-control" placeholder="••••••••" type="password" />
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
 
@@ -257,5 +293,8 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
 </body>
 </html>
