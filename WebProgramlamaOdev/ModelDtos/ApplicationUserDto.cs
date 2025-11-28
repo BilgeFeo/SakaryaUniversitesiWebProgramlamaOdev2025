@@ -5,7 +5,7 @@ using WebProgramlamaOdev.Models;
 
 namespace WebProgramlamaOdev.ModelDtos
 {
-    public class ApplicaitonUserDto
+    public class ApplicationUserDto
     {
 
         [StringLength(50)]
@@ -23,7 +23,7 @@ namespace WebProgramlamaOdev.ModelDtos
 
         [Phone]
         [StringLength(20)]
-        public string Phone { get; set; }
+        public string PhoneNumber { get; set; }
 
 
 

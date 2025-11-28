@@ -4,11 +4,16 @@ using WebProgramlamaOdev.Models;
 using WebProgramlamaOdev.ModelDtos;
 
 
+
+
 namespace WebProgramlamaOdev.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+
+        public List<ApplicationUser> ApplicationUserListTemp = new List<ApplicationUser>();
+
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -22,24 +27,29 @@ namespace WebProgramlamaOdev.Controllers
 
         public IActionResult CreateAccount()
         {
+            
             return View();
         }
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public string AccountCreationSuccesful(ApplicaitonUserDto applicationUserDto)
+        public IActionResult AccountCreationSuccesful(ApplicationUserDto applicationUserDto)
         {
 
             if(ModelState.IsValid)
             {
-                return applicationUserDto.FirstName + " " +applicationUserDto.LastName+" "+ applicationUserDto.Email+" "+applicationUserDto.Password+" "+ applicationUserDto.Phone;
+                  
+                ApplicationUserListTemp.Add(new ApplicationUser(applicationUserDto));
+                TempData["Name"] = ApplicationUserListTemp[0].FullName;
+                return View();
             }
 
             else
             {
-                return "Hata";
+                ViewBag.GeneralError = "Hata: Lutfen asagidaki alanlardaki bilgileri kontrol edip tekrar deneyiniz.";
+                return RedirectToAction("CreateAccount",applicationUserDto);
             }
-
+            
         }
         
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

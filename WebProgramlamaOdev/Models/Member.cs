@@ -13,7 +13,7 @@ namespace WebProgramlamaOdev.Models
 
         [Phone]
         [StringLength(20)]
-        public string Phone { get; set; }
+       
 
         public DateTime? DateOfBirth { get; set; }
 
@@ -27,14 +27,8 @@ namespace WebProgramlamaOdev.Models
         [StringLength(50)]
         public string BodyType { get; set; } // Zayıf, Normal, Kilolu, vb.
 
-        public DateTime MembershipStartDate { get; set; } = DateTime.Now;
 
-        public DateTime? MembershipEndDate { get; set; }
-
-        [StringLength(500)]
-        public string Photo { get; set; }
-
-        
+       
         [NotMapped]
         public int? Age
         {
