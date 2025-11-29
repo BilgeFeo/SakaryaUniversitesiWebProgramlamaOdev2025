@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebProgramlamaOdev")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+09ac7b7b21c2f957ad61e3a11aa956151eb4362e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ce23e96baa74951a3b379d1889642d63a0cab16")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebProgramlamaOdev")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebProgramlamaOdev")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

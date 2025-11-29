@@ -70,20 +70,29 @@ namespace WebProgramlamaOdev.Controllers
             {
                 if (SavedUsers.TryGetValue(loginRequestDto.Email, out ApplicationUser CurrentUser))
                 {
-                    if (CurrentUser.Password == loginRequestDto.Password) {
-                        return RedirectToAction("Index","MemberHome");
+                    if (CurrentUser.Password == loginRequestDto.Password)
+                    {
+                        return RedirectToAction("Index", "MemberHome");
                     }
-                   
+
+
+                    
+
+
                 }
+                if (loginRequestDto.Email == "b231210033@sakarya.edu.tr" && loginRequestDto.Password == "admin")
+                {
 
-               
+                    return RedirectToAction("Index","AdminHome");
 
+
+
+                }
+                
             }
-             
             return RedirectToAction("Index");
-
-           
         } 
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
             {
