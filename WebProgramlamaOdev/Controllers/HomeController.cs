@@ -8,8 +8,8 @@ namespace WebProgramlamaOdev.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        public List<ApplicationUser> ApplicationUserListTemp = new List<ApplicationUser>();
-        public Dictionary<string, ApplicationUser> SavedUsers = new Dictionary<string, ApplicationUser>();
+        public static List<ApplicationUser> ApplicationUserListTemp = new List<ApplicationUser>();
+        public static Dictionary<string, ApplicationUser> SavedUsers = new Dictionary<string, ApplicationUser>();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -41,10 +41,10 @@ namespace WebProgramlamaOdev.Controllers
             }
             else
             {
-                // Hata mesajını ViewBag ile gönder
+                
                 ViewBag.GeneralError = "Lutfen asagidaki alanları kontrol edip tekrar deneyiniz.";
 
-                // Aynı view'a geri dön (CreateAccount view'ı)
+                
                 return View("CreateAccount", applicationUserDto);
             }
         }
@@ -71,12 +71,12 @@ namespace WebProgramlamaOdev.Controllers
                 if (SavedUsers.TryGetValue(loginRequestDto.Email, out ApplicationUser CurrentUser))
                 {
                     if (CurrentUser.Password == loginRequestDto.Password) {
-                        
+                        return RedirectToAction("Index","MemberHome");
                     }
-                    
+                   
                 }
 
-               return View();
+               
 
             }
              
