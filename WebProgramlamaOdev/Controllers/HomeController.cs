@@ -31,6 +31,7 @@ namespace WebProgramlamaOdev.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult TriesAccountCreation(ApplicationUserDto applicationUserDto)
         {
+
             if (ModelState.IsValid)
             {
                 ApplicationUser AppUserTemp = new ApplicationUser(applicationUserDto);
@@ -39,6 +40,7 @@ namespace WebProgramlamaOdev.Controllers
                 SavedUsers.Add(applicationUserDto.Email, AppUserTemp);
                 return View();
             }
+
             else
             {
                 
@@ -75,17 +77,13 @@ namespace WebProgramlamaOdev.Controllers
                         return RedirectToAction("Index", "MemberHome");
                     }
 
-
-                    
-
-
                 }
-                if (loginRequestDto.Email == "b231210033@sakarya.edu.tr" && loginRequestDto.Password == "admin")
+
+
+                if (loginRequestDto.Email == "b231210033@sakarya.edu.tr" && loginRequestDto.Password == "sau")
                 {
 
                     return RedirectToAction("Index","AdminHome");
-
-
 
                 }
                 
