@@ -24,8 +24,24 @@ build_property.EnableCodeStyleSeverity =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/ShowAppointments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dBcHBvaW50bWVudHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/ShowGyms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dHeW1zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/ShowMembers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dNZW1iZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/ShowServices.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dTZXJ2aWNlcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/ShowTrainers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dUcmFpbmVycy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Home/CreateAccount.cshtml]

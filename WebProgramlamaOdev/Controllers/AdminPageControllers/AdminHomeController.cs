@@ -30,11 +30,6 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             return View();
         }
 
-
-
-
-
-
         public IActionResult ShowAppointments()
         {
             return View();
