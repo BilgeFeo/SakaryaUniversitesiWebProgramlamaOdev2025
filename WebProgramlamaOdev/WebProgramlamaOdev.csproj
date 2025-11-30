@@ -6,4 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\GymPageControllers\" />
+    <Folder Include="Controllers\TrainerPage\" />
+  </ItemGroup>
+
 </Project>

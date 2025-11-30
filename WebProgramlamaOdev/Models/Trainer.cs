@@ -13,7 +13,7 @@ namespace WebProgramlamaOdev.Models
 
         [Required]
         public string UserId { get; set; }
-
+        [Required]
         public int GymId { get; set; }
 
         
