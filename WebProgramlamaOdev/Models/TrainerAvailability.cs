@@ -3,50 +3,36 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebProgramlamaOdev.Models
 {
+    [Table("TrainerAvailability")]
     public class TrainerAvailability
     {
-
+        [Key]
         public int Id { get; set; }
 
         [Required]
+        [ForeignKey("Trainer")]
         public int TrainerId { get; set; }
+        public Trainer Trainer { get; set; }
+        [Required]
+        [Column("EventDate")]
+        public DateTime EventDate { get; set; }
 
         [Required]
-        [Range(0, 6)] // 0=Pazartesi, 6=Pazar
-        public int DayOfWeek { get; set; }
-
-        [Required]
+        [Column("StartTime")]
         public TimeSpan StartTime { get; set; }
 
         [Required]
+        [Column("EndTime")]
         public TimeSpan EndTime { get; set; }
 
+        [Required]
+        [Column("IsActive")]
         public bool IsActive { get; set; } = true;
 
-        // Navigation Property
-        public Trainer Trainer { get; set; }
 
-        [NotMapped]
-        public string DayName
-        {
-            get
-            {
-                return DayOfWeek switch
-                {
-                    0 => "Pazartesi",
-                    1 => "Salı",
-                    2 => "Çarşamba",
-                    3 => "Perşembe",
-                    4 => "Cuma",
-                    5 => "Cumartesi",
-                    6 => "Pazar",
-                    _ => "Bilinmiyor"
-                };
-            }
+        
 
-
-
-
-        }
+        
+       
     }
 }

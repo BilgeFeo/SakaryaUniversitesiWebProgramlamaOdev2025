@@ -22,12 +22,13 @@ namespace WebProgramlamaOdev.Models
         public string AIResponse { get; set; } // JSON formatında
 
         [StringLength(500)]
+        
         public string GeneratedImagePath { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         // Navigation Property
-        public Member Member { get; set; }
+        public Member? Member { get; set; }
 
 
 

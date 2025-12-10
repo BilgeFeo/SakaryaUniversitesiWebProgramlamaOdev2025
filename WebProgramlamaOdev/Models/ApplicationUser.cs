@@ -5,28 +5,34 @@ using System.ComponentModel.DataAnnotations.Schema;
 using WebProgramlamaOdev.ModelDtos ;
 namespace WebProgramlamaOdev.Models
 {
+    [Table("ApplicationUser")]
     public class ApplicationUser : IdentityUser
     {
 
-
-        int? Id;
+        [Key]
+        int Id;
 
         [StringLength(50)]
+        [Column("FirstName")]
         public string FirstName { get; set; }
         [StringLength(50)]
+        [Column("LastName")]
         public string LastName { get; set; }
 
         [Required]
         [PasswordPropertyText]
+        [Column("Password")]
         public string Password { get; set; }
 
         [EmailAddress]
         [StringLength(100)]
+        [Column("Email")]
         public string Email { get; set; }
 
         [Phone]
         [StringLength(20)]
-        public string Phone { get; set; }
+        [Column("PhoneNumber")]
+        public string PhoneNumber { get; set; }
 
         
         public DateTime CreatedDate { get; set; }

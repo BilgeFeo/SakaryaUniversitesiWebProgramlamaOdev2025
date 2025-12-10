@@ -3,32 +3,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebProgramlamaOdev.Models
 {
+    [Table("Member")]
     public class Member
     {
 
+        [Key]
         public int Id { get; set; }
 
         [Required]
+        [ForeignKey("ApplicationUser")]
         public string UserId { get; set; }
+        public ApplicationUser User { get; set; }
 
-        [Phone]
-        [StringLength(20)]
-       
 
+        [Required]
+        [Column("DateOfBirth")]
         public DateTime? DateOfBirth { get; set; }
 
+        [Required]
         [StringLength(10)]
+        [Column("Gender")]
         public string Gender { get; set; } // Erkek, Kadın, Diğer
 
+        [Required]
+        [Column("Gender")]
         public int? Height { get; set; } // cm
 
+        [Required]
+        [Column("Gender")]
         public decimal? Weight { get; set; } // kg
 
-        [StringLength(50)]
-        public string BodyType { get; set; } // Zayıf, Normal, Kilolu, vb.
 
-
-       
+        [Column("Age")]
         [NotMapped]
         public int? Age
         {
@@ -46,7 +52,7 @@ namespace WebProgramlamaOdev.Models
         }
 
         // Navigation Properties
-        public ApplicationUser User { get; set; }
+        
         public ICollection<Appointment> Appointments { get; set; }
         public ICollection<AIDailyPlanRecommendation> AIRecommendations { get; set; }
 
