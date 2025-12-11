@@ -1,50 +1,34 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebProgramlamaOdev.Models;
 
-namespace WebProgramlamaOdev.Models
+[Table("Gym")]
+public class Gym
 {
-    [Table("Gym")]
-    public class Gym
-    {
+    [Key]
+    public int Id { get; set; }
 
-        public Gym()
-        {
+    [Required(ErrorMessage = "Bu Alan Zorunludur")]
+    [StringLength(100, ErrorMessage = "Karakter Siniri Asildi")]
+    public string Name { get; set; }
 
-            
-        }
+    [StringLength(200, ErrorMessage = "Karakter Siniri Asildi")]
+    public string Address { get; set; }
 
-        [Key]
-        public int Id { get; set; }
+    [Phone]
+    [MaxLength(20)]
+    public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "Bu Alan Zorunludur")]
-        [StringLength(100,ErrorMessage ="Karakter Siniri Asildi")]
-        [Column("Name")]
-        public string Name { get; set; }
+    [EmailAddress(ErrorMessage = "Gecerli bir mail adresi olmalidir")]
+    [StringLength(100, ErrorMessage = "Karakter siniri asildi")]
+    public string Email { get; set; }
 
-        [StringLength(200, ErrorMessage = "Karakter Siniri Asildi")]
-        [Column("Address")]
-        public string Address { get; set; }
+    public TimeSpan OpeningTime { get; set; }
+    public TimeSpan ClosingTime { get; set; }
 
-        [Phone]
-        [MaxLength(20)]
-        [Column("PhoneNumber")]
-        public string PhoneNumber { get; set; }
+    public bool IsActive { get; set; } = true;
 
-
-        [EmailAddress(ErrorMessage ="Gecerli bir mail adresi olmalidir")]
-        [StringLength(100,ErrorMessage ="Karakter siniri asildi")]
-        [Column("Email")]
-        public string Email { get; set; }
-        
-        public TimeSpan OpeningTime { get; set; }
-
-        public TimeSpan ClosingTime { get; set; }
-        [Column("IsActive")]
-        public bool IsActive { get; set; } = true;
-    
-        List<ServiceType> ServiceList{ get; set; }
-        List<Trainer> TrainerList { get; set; }
-    
-    
-    }
+    // Navigation Properties - PUBLIC olmalı
+    public ICollection<ServiceType> ServiceList { get; set; } = new List<ServiceType>();
+    public ICollection<Trainer> TrainerList { get; set; } = new List<Trainer>();
 }

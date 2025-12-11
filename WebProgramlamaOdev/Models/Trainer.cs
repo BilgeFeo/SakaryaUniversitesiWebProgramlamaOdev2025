@@ -13,13 +13,14 @@ namespace WebProgramlamaOdev.Models
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("ApplicationUser")]
+        
         public string UserId { get; set; }
+        [ForeignKey("ApplicationUser")]
         public ApplicationUser User { get; set; }
 
         [Required]
-        [ForeignKey("Gym")]
         public int GymId { get; set; }
+        [ForeignKey("GymId")]
         public Gym Gym { get; set; }
 
         [Required]

@@ -1,42 +1,36 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WebProgramlamaOdev.Models;
 
-namespace WebProgramlamaOdev.Models
+[Table("ServiceType")] // "ServieType" yerine düzeltildi
+public class ServiceType
 {
-    [Table("ServieType")]
-    public class ServiceType
-    {
-        [Key]
-        public int Id { get; set; }
+    [Key]
+    public int Id { get; set; }
 
-        [ForeignKey("Gym")]
-        public int GymId { get; set; }
+    [Required]
+    
+    public int GymId { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        [Column("Name")]
-        public string Name { get; set; }
+    [Required]
+    [StringLength(100)]
+    public string Name { get; set; }
 
-        [StringLength(500)]
-        [Column("Description")]
-        public string Description { get; set; }
+    [StringLength(500)]
+    public string Description { get; set; }
 
-        [Required]
-        [Column("Duration")]
-        public int Duration { get; set; } // dakika
+    [Required]
+    public int Duration { get; set; } // dakika
 
-        [Required]
-        [Column("Price",TypeName = "decimal(18,2)")]
-        
-        public decimal Price { get; set; }
+    [Required]
+    [Column(TypeName = "decimal(18,2)")]
+    public decimal Price { get; set; }
 
-        [Column("IsActive")]
-        public bool IsActive { get; set; } = true;
+    public bool IsActive { get; set; } = true;
 
-        // Navigation Properties
-        public Gym Gym { get; set; }
-        public ICollection<ServicesByTrainer> servicesByTrainers{ get; set; }
-        public ICollection<Appointment> Appointments { get; set; }
-
-    }
+    // Navigation Properties
+    [ForeignKey("GymId")]
+    public Gym Gym { get; set; }
+    public ICollection<ServicesByTrainer> ServicesByTrainers { get; set; } = new List<ServicesByTrainer>();
+    public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
 }

@@ -10,15 +10,17 @@ namespace WebProgramlamaOdev.Models
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("Trainer")]
+        
         public int TrainerId { get; set; }
 
         [Required]
-        [ForeignKey("ServiceType")]
         public int ServiceTypeId { get; set; }
 
         // Navigation Properties
+        [ForeignKey("TrainerId")]
         public Trainer Trainer { get; set; }
+        
+        [ForeignKey("ServiceTypeId")]
         public ServiceType serviceType { get; set; }
 
 
