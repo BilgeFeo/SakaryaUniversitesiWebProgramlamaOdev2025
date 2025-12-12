@@ -14,7 +14,7 @@ namespace WebProgramlamaOdev.Models
         public int TrainerId { get; set; }
 
         
-        [ForeignKey("Trainer")]
+        [ForeignKey("TrainerId")]
         public Trainer Trainer { get; set; }
         
         [Required]

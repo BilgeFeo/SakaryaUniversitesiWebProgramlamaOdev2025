@@ -6,22 +6,42 @@ namespace WebProgramlamaOdev.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        // IdentityUser zaten Id, Email, PhoneNumber, PasswordHash sağlıyor
-        // Bu yüzden tekrar tanımlamaya gerek yok
+       
+        [MaxLength(50)]
+        public string FirstName { get; set; } = string.Empty;
 
-        [StringLength(50)]
-        public string FirstName { get; set; }
-
-        [StringLength(50)]
-        public string LastName { get; set; }
+        [MaxLength(50)]
+        public string LastName { get; set; } = string.Empty;
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
-        [NotMapped]
-        public string FullName => $"{FirstName} {LastName}";
+      
 
-        // Navigation Properties
-        public Trainer? Trainer { get; set; }
+        [MaxLength(20)]
+        public string UserType { get; set; } = "Member"; // Member, Trainer, Gym
+
+        [NotMapped]
+        public string DisplayName
+        {
+            get
+            {
+                return UserType switch
+                {
+                    "Member" => $"{FirstName} {LastName}".Trim(),
+                    "Trainer" => $"{FirstName} {LastName}".Trim(),
+                    "Gym" => Gym?.Name ?? "Salon",
+                    _ => Email ?? "Kullanıcı"
+                };
+            }
+        }
+
+        [NotMapped]
+        public string FullName => $"{FirstName} {LastName}".Trim();
+
         public Member? Member { get; set; }
+        public Trainer? Trainer { get; set; }
+
+        
+        public Gym? Gym { get; set; }
     }
 }

@@ -23,6 +23,8 @@ namespace WebProgramlamaOdev.Models
         [ForeignKey("GymId")]
         public Gym Gym { get; set; }
 
+        public string Specialization { get; set; }
+
         [Required]
         [Column("IsActive")]
         public bool IsActive { get; set; } = true;

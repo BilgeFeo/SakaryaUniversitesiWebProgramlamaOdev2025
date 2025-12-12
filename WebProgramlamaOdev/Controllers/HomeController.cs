@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaOdev.Models;
-using WebProgramlamaOdev.ModelDtos;
+using WebProgramlamaOdev.DTOs;
 
 namespace WebProgramlamaOdev.Controllers
 {
@@ -29,15 +29,12 @@ namespace WebProgramlamaOdev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult TriesAccountCreation(ApplicationUserDto applicationUserDto)
+        public IActionResult TriesAccountCreation(MemberRegisterRequestDto applicationUserDto)
         {
 
             if (ModelState.IsValid)
             {
-                ApplicationUser AppUserTemp = new ApplicationUser(applicationUserDto);
-                ApplicationUserListTemp.Add(AppUserTemp);
-                TempData["Name"] = applicationUserDto.FirstName + " " + applicationUserDto.LastName;
-                SavedUsers.Add(applicationUserDto.Email, AppUserTemp);
+                
                 return View();
             }
 
@@ -70,14 +67,6 @@ namespace WebProgramlamaOdev.Controllers
 
             if (ModelState.IsValid)
             {
-                if (SavedUsers.TryGetValue(loginRequestDto.Email, out ApplicationUser CurrentUser))
-                {
-                    if (CurrentUser.Password == loginRequestDto.Password)
-                    {
-                        return RedirectToAction("Index", "MemberHome");
-                    }
-
-                }
 
 
                 if (loginRequestDto.Email == "b231210033@sakarya.edu.tr" && loginRequestDto.Password == "sau")
