@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaOdev.Models;
 using WebProgramlamaOdev.DTOs;
+using WebProgramlamaOdev.Services;
+using WebProgramlamaOdev.Services.ServiceInterfaces;
 
 namespace WebProgramlamaOdev.Controllers
 {
@@ -11,9 +13,16 @@ namespace WebProgramlamaOdev.Controllers
         public static List<ApplicationUser> ApplicationUserListTemp = new List<ApplicationUser>();
         public static Dictionary<string, ApplicationUser> SavedUsers = new Dictionary<string, ApplicationUser>();
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public readonly IAuthService _authService;
+        public readonly ISignUpService _signupService;
+        
+
+        public HomeController(ILogger<HomeController> logger,IAuthService authService, ISignUpService signUpService)
         {
             _logger = logger;
+            _authService = authService;
+            _signupService = signUpService;
         }
 
         public IActionResult Index()
@@ -29,38 +38,30 @@ namespace WebProgramlamaOdev.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult TriesAccountCreation(MemberRegisterRequestDto applicationUserDto)
+        public async Task<IActionResult> TriesAccountCreation(MemberRegisterRequestDto applicationUserDto)
         {
 
             if (ModelState.IsValid)
             {
-                
-                return View();
+                if(await _signupService.RegisterMemberAsync(applicationUserDto))
+                {
+                    return RedirectToAction("Index");
+                }
+
             }
 
-            else
-            {
-                
-                ViewBag.GeneralError = "Lutfen asagidaki alanları kontrol edip tekrar deneyiniz.";
+            
+             ViewBag.GeneralError = "Lutfen asagidaki alanları kontrol edip tekrar deneyiniz.";
 
                 
-                return View("CreateAccount", applicationUserDto);
-            }
+             return View("CreateAccount", applicationUserDto);
+            
         }
 
-        [HttpGet]
-        public IActionResult RegistrationSuccess()
-        {
-            if (TempData["Name"] == null)
-            {
-                return RedirectToAction("Index");
-            }
-            return View("Index");
-        }
-
+        
         [HttpPost]
 
-        public IActionResult UserLoginAttempt(LoginRequestDto loginRequestDto)
+        public async Task<IActionResult> UserLoginAttempt(LoginRequestDto loginRequestDto)
         {
 
 
@@ -68,12 +69,29 @@ namespace WebProgramlamaOdev.Controllers
             if (ModelState.IsValid)
             {
 
+                string UserType = await _authService.ValidateUser(loginRequestDto.Email, loginRequestDto.Password);
 
-                if (loginRequestDto.Email == "b231210033@sakarya.edu.tr" && loginRequestDto.Password == "sau")
+                if (!string.IsNullOrEmpty(UserType))
                 {
+                    if (UserType=="Member") 
+                    {
+                        return RedirectToAction("Index", "MemberHome");
+                    }
 
-                    return RedirectToAction("Index","AdminHome");
+                    else if (UserType == "Trainer")
+                    {
+                        return RedirectToAction("Index","TrainerHome");
+                    }
 
+                    else
+                    {
+                        return RedirectToAction("Index","GymHome");
+                    }
+                }
+
+                else if (await _authService.ValidateAdmin(loginRequestDto.Email, loginRequestDto.Password))
+                {
+                    return RedirectToAction("Index", "AdminHome");
                 }
                 
             }

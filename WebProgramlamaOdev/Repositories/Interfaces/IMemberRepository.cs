@@ -10,5 +10,7 @@ namespace WebProgramlamaOdev.Repositories.Interfaces
         Task<Member?> GetWithAIRecommendationsAsync(int memberId);
         Task<IEnumerable<Member>> GetMembersWithActiveAppointmentsAsync();
         Task<bool> IsUserMemberAsync(string userId);
+
+        Task<bool> AddAsync(Member member);
     }
 }

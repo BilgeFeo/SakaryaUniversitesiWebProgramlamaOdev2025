@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using WebProgramlamaOdev.Data;
 using WebProgramlamaOdev.Models;
 using WebProgramlamaOdev.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace WebProgramlamaOdev.Repositories
 {
@@ -60,5 +62,30 @@ namespace WebProgramlamaOdev.Repositories
         {
             return await _dbSet.AnyAsync(m => m.UserId == userId);
         }
+
+
+        public async Task<bool> AddAsync(Member member)
+        {
+            try
+            {
+                
+                await _context.Members.AddAsync(member);
+
+                // Veritabanına kaydet
+                int result = await _context.SaveChangesAsync();
+
+                
+                return result > 0;
+            }
+            catch (Exception ex)
+            {
+                
+                return false;
+            }
+        }
+
+
+
+
     }
 }

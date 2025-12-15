@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebProgramlamaOdev.Data;
 using WebProgramlamaOdev.Models;
+using WebProgramlamaOdev.Repositories;
+using WebProgramlamaOdev.Repositories.Interfaces;
+using WebProgramlamaOdev.Services;
+using WebProgramlamaOdev.Services.ServiceInterfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +49,20 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.ExpireTimeSpan = TimeSpan.FromHours(24);
 });
 //
+
+
+//Servis Tanimlamalari
+builder.Services.AddScoped<ISignUpService, SignUpService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+
+
+
+//Repository Tanimlamalari
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
+builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+
+
 
 var app = builder.Build();
 
