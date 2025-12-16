@@ -4,7 +4,7 @@ using WebProgramlamaOdev.Repositories;
 using WebProgramlamaOdev.Repositories.Interfaces;
 using WebProgramlamaOdev.Services.ServiceInterfaces;
 
-namespace WebProgramlamaOdev.Services
+namespace WebProgramlamaOdev.Services.HomePageServices
 {
     public class SignUpService : ISignUpService
     {

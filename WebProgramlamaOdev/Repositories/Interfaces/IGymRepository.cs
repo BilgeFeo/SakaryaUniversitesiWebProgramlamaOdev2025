@@ -10,6 +10,8 @@ namespace WebProgramlamaOdev.Repositories.Interfaces
         Task<Gym?> GetWithServicesAndTrainersAsync(int gymId);
         Task<IEnumerable<Gym>> SearchByNameAsync(string name);
         Task<bool> IsGymActiveAsync(int gymId);
+
+        Task<bool> AddAsync(Gym gym);
     }
 }
 

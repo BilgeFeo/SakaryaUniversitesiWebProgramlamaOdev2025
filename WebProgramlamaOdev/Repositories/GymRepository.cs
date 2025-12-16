@@ -28,6 +28,26 @@ namespace WebProgramlamaOdev.Repositories
                 .ToListAsync();
         }
 
+        public async Task<bool> AddAsync(Gym gym)
+        {
+
+            try
+            {
+                // Kullanıcıyı bellek üzerindeki takip listesine ekler
+                await _context.Gyms.AddAsync(gym);
+
+                // Değişiklikleri veritabanına yazar
+                // SaveChangesAsync, etkilenen satır sayısını döner. 0'dan büyükse işlem başarılıdır.
+                int result = await _context.SaveChangesAsync();
+
+                return result > 0;
+            }
+            catch
+            {
+                // Herhangi bir hata oluşursa (örn: veritabanı bağlantısı koparsa) false döner
+                return false;
+            }
+        }
        
         public override async Task<IEnumerable<Gym>> GetWhereAsync(Expression<Func<Gym, bool>> predicate)
         {

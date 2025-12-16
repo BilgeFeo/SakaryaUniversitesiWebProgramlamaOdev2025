@@ -4,7 +4,7 @@ using WebProgramlamaOdev.Models;
 using WebProgramlamaOdev.Repositories.Interfaces;
 using WebProgramlamaOdev.Services.ServiceInterfaces;
 
-namespace WebProgramlamaOdev.Services
+namespace WebProgramlamaOdev.Services.HomePageServices
 {
 
 

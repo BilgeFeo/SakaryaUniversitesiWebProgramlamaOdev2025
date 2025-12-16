@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using WebProgramlamaOdev.Data;
+using WebProgramlamaOdev.DTOs;
+using WebProgramlamaOdev.Models;
+using WebProgramlamaOdev.Repositories.Interfaces;
+using WebProgramlamaOdev.Services.AdminPageServices;
 
 namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
@@ -6,6 +12,16 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
     public class AdminHomeController : Controller
     {
+        
+        private readonly ICreateGymService _createGymService;
+        public AdminHomeController(ICreateGymService createGymService)
+        {
+
+            _createGymService = createGymService;
+
+
+        }
+
 
 
         public IActionResult Index()
@@ -19,6 +35,33 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             return View();     
         }
     
+
+        public IActionResult CreateGym()
+        {
+            return View();
+        }
+
+        [HttpPost("Create")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(CreateGymRequestDto model)
+        {
+            if (ModelState.IsValid)
+            {
+                
+
+                if (!await _createGymService.CreateGymAndSaveOnDatabase(model))
+                {
+                    
+                    return RedirectToAction(nameof(Index));
+                }
+
+                
+            }
+
+            return View(model);
+        }
+
+
 
         public IActionResult ShowServices() 
         {
