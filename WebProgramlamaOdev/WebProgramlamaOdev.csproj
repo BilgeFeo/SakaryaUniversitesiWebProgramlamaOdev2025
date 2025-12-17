@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Controllers\GymPageControllers\" />
     <Folder Include="Controllers\TrainerPageControllers\" />
+    <Folder Include="Views\AdminServiceManagement\" />
   </ItemGroup>
 
   <ItemGroup>

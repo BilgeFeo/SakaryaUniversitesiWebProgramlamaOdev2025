@@ -82,7 +82,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
         {
             if (!ModelState.IsValid)
             {
-                return View("CreateGym", model);  // ✅ View adı belirtildi
+                return View("CreateGym", model); 
             }
 
             try
@@ -97,20 +97,19 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
                 else
                 {
                     TempData["ErrorMessage"] = "Salon eklenirken bir hata oluştu.";
-                    return View("CreateGym", model);  // ✅ View adı belirtildi
+                    return View("CreateGym", model);  
                 }
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "Hata: " + ex.Message;
-                return View("CreateGym", model);  // ✅ View adı belirtildi
+                return View("CreateGym", model);  
             }
         }
 
 
 
 
-        // EditGym GET - Düzenleme formunu göster
         [HttpGet]
         public async Task<IActionResult> EditGym(int id)
         {
@@ -146,16 +145,14 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             }
         }
 
-
-
-        // EditGym POST - Güncelleme işlemi
-        [HttpPost]
+        
+        [HttpPost] 
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditThisGym(UpdateGymRequestDto model)
+        public async Task<IActionResult> EditGym(UpdateGymRequestDto model) 
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return View("EditGym", model);  
             }
 
             try
@@ -168,67 +165,54 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
                     return RedirectToAction(nameof(ShowGyms));
                 }
 
-                await _unitOfWork.BeginTransactionAsync();
+                
 
-                try
+                
+                gym.Name = model.Name;
+                gym.Address = model.Address;
+                gym.OpeningTime = model.OpeningTime;
+                gym.ClosingTime = model.ClosingTime;
+                gym.IsActive = model.IsActive;
+
+                
+                if (gym.User != null)
                 {
-                    // Gym bilgilerini güncelle
-                    gym.Name = model.Name;
-                    gym.Address = model.Address;
-                    gym.OpeningTime = model.OpeningTime;
-                    gym.ClosingTime = model.ClosingTime;
-                    gym.IsActive = model.IsActive;
+                    var emailChanged = gym.User.Email != model.Email;
+                    var phoneChanged = gym.User.PhoneNumber != model.PhoneNumber;
 
-                    await _unitOfWork.Gyms.UpdateAsync(gym);
-
-                    // ApplicationUser bilgilerini güncelle
-                    if (gym.User != null)
+                    if (emailChanged || phoneChanged)
                     {
-                        var emailChanged = gym.User.Email != model.Email;
-                        var phoneChanged = gym.User.PhoneNumber != model.PhoneNumber;
+                        gym.User.Email = model.Email;
+                        gym.User.UserName = model.Email;
+                        gym.User.PhoneNumber = model.PhoneNumber;
 
-                        if (emailChanged || phoneChanged)
+                        var updateResult = await _userManager.UpdateAsync(gym.User);
+
+                        if (!updateResult.Succeeded)
                         {
-                            gym.User.Email = model.Email;
-                            gym.User.UserName = model.Email;
-                            gym.User.PhoneNumber = model.PhoneNumber;
-
-                            var updateResult = await _userManager.UpdateAsync(gym.User);
-
-                            if (!updateResult.Succeeded)
+                            foreach (var error in updateResult.Errors)
                             {
-                                await _unitOfWork.RollbackTransactionAsync();
-
-                                foreach (var error in updateResult.Errors)
-                                {
-                                    ModelState.AddModelError(string.Empty, error.Description);
-                                }
-
-                                return View(model);
+                                ModelState.AddModelError(string.Empty, error.Description);
                             }
+
+                            return View("EditGym", model);  
                         }
                     }
-
-                    await _unitOfWork.CommitTransactionAsync();
-
-                    TempData["SuccessMessage"] = $"{gym.Name} başarıyla güncellendi.";
-                    return RedirectToAction(nameof(ShowGyms));
                 }
-                catch
-                {
-                    await _unitOfWork.RollbackTransactionAsync();
-                    throw;
-                }
+
+               
+                await _unitOfWork.Gyms.UpdateAsync(gym);
+                await _unitOfWork.SaveChangesAsync();  
+
+                TempData["SuccessMessage"] = $"{gym.Name} başarıyla güncellendi.";
+                return RedirectToAction(nameof(ShowGyms));
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = "Güncelleme sırasında hata oluştu: " + ex.Message;
-                return View(model);
+                return View("EditGym", model); 
             }
         }
-
-
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]

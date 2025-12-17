@@ -1,24 +1,19 @@
-﻿
-// Repositories/UnitOfWork.cs
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using WebProgramlamaOdev.Data;
 using WebProgramlamaOdev.Repositories.Interfaces;
 
 namespace WebProgramlamaOdev.Repositories
 {
-    /// <summary>
-    /// Unit of Work Implementation
-    /// </summary>
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
         private IDbContextTransaction? _transaction;
 
-        // Lazy initialization için private fields
         private IMemberRepository? _memberRepository;
         private ITrainerRepository? _trainerRepository;
         private IGymRepository? _gymRepository;
-        private IServiceTypeRepository? _serviceTypeRepository;
+        private IServiceTypeRepository? _serviceTypeRepository; 
         private IAppointmentRepository? _appointmentRepository;
         private ITrainerAvailabilityRepository? _trainerAvailabilityRepository;
         private IServicesByTrainerRepository? _servicesByTrainerRepository;
@@ -29,9 +24,7 @@ namespace WebProgramlamaOdev.Repositories
             _context = context;
         }
 
-        // ============================================
-        // REPOSITORY PROPERTIES (Lazy Initialization)
-        // ============================================
+        public ApplicationDbContext Context => _context;
 
         public IMemberRepository Members
         {
@@ -69,6 +62,7 @@ namespace WebProgramlamaOdev.Repositories
             }
         }
 
+        // ✅ YENİ EKLEME
         public IServiceTypeRepository ServiceTypes
         {
             get
@@ -129,10 +123,7 @@ namespace WebProgramlamaOdev.Repositories
             }
         }
 
-        // ============================================
-        // TRANSACTION METHODS
-        // ============================================
-
+        // Transaction Methods
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();
@@ -178,10 +169,6 @@ namespace WebProgramlamaOdev.Repositories
                 _transaction = null;
             }
         }
-
-        // ============================================
-        // DISPOSE
-        // ============================================
 
         public void Dispose()
         {

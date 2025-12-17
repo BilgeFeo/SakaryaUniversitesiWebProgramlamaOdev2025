@@ -7,8 +7,13 @@ namespace WebProgramlamaOdev.Repositories
 {
     public class ServiceTypeRepository : Repository<ServiceType>, IServiceTypeRepository
     {
+        private readonly ApplicationDbContext _context;
+        private readonly DbSet<ServiceType> _dbSet;
+
         public ServiceTypeRepository(ApplicationDbContext context) : base(context)
         {
+            _context = context;
+            _dbSet = _context.Set<ServiceType>();
         }
 
         public async Task<IEnumerable<ServiceType>> GetActiveServicesAsync()
@@ -62,5 +67,56 @@ namespace WebProgramlamaOdev.Repositories
                 .Where(s => s.Name.Contains(name) && s.IsActive)
                 .ToListAsync();
         }
+
+
+        public async Task<IEnumerable<ServiceType>> GetAllAsync()
+        {
+            return await _dbSet
+                .Include(s => s.Gym)
+                .Include(s => s.ServicesByTrainers)
+                .Include(s => s.Appointments)
+                .ToListAsync();
+        }
+
+        public async Task<ServiceType?> GetByIdAsync(int id)
+        {
+            return await _dbSet
+                .Include(s => s.Gym)
+                .Include(s => s.ServicesByTrainers)
+                .Include(s => s.Appointments)
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+        public async Task<ServiceType?> GetWithDetailsAsync(int id)
+        {
+            return await _dbSet
+                .Include(s => s.Gym)
+                .Include(s => s.ServicesByTrainers)
+                    .ThenInclude(st => st.Trainer)
+                .Include(s => s.Appointments)
+                    .ThenInclude(a => a.Member)
+                .FirstOrDefaultAsync(s => s.Id == id);
+        }
+
+       
+
+        public async Task AddAsync(ServiceType serviceType)
+        {
+            await _dbSet.AddAsync(serviceType);
+        }
+
+        public async Task UpdateAsync(ServiceType serviceType)
+        {
+            _dbSet.Update(serviceType);
+            await Task.CompletedTask;
+        }
+
+        public async Task DeleteAsync(ServiceType serviceType)
+        {
+            _dbSet.Remove(serviceType);
+            await Task.CompletedTask;
+        }
+
+
     }
 }

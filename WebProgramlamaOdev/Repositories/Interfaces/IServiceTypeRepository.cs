@@ -13,6 +13,18 @@ namespace WebProgramlamaOdev.Repositories.Interfaces
         Task<ServiceType?> GetWithAppointmentsAsync(int serviceId);
         Task<IEnumerable<ServiceType>> GetServicesByTrainerAsync(int trainerId);
         Task<IEnumerable<ServiceType>> SearchByNameAsync(string name);
+        Task<IEnumerable<ServiceType>> GetAllAsync();
+        Task<ServiceType?> GetByIdAsync(int id);
+        Task<ServiceType?> GetWithDetailsAsync(int id);
+        Task AddAsync(ServiceType serviceType);
+        Task UpdateAsync(ServiceType serviceType);
+        Task DeleteAsync(ServiceType serviceType);
+
+
+
+
+
+
     }
 }
 
