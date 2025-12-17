@@ -55,7 +55,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 //Servis Tanimlamalari
 builder.Services.AddScoped<ISignUpService, SignUpService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ICreateGymService,CreateGymService>();
+builder.Services.AddScoped<IGymManagementService,GymManagementService>();
 
 
 //Repository Tanimlamalari
@@ -63,7 +63,7 @@ builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IGymRepository, GymRepository>();
-
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

@@ -2,7 +2,7 @@
 
 namespace WebProgramlamaOdev.Services.AdminPageServices
 {
-    public interface ICreateGymService
+    public interface IGymManagementService
     {
 
         Task<bool> CreateGymAndSaveOnDatabase(CreateGymRequestDto GymModelInstance);

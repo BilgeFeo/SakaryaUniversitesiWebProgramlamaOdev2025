@@ -5,14 +5,14 @@ using WebProgramlamaOdev.Repositories.Interfaces;
 
 namespace WebProgramlamaOdev.Services.AdminPageServices
 {
-    public class CreateGymService :ICreateGymService
+    public class GymManagementService :IGymManagementService
     {
 
         private readonly IApplicationUserRepository _applicationUserRepository;
         private readonly IGymRepository _gymRepository;
 
 
-        public CreateGymService(IApplicationUserRepository applicationUserRepository, IGymRepository gymRepository)
+        public GymManagementService(IApplicationUserRepository applicationUserRepository, IGymRepository gymRepository)
         {
 
             _applicationUserRepository = applicationUserRepository;
