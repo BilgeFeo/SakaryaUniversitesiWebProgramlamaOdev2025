@@ -29,9 +29,42 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
         }
 
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            try
+            {
+                // Tüm verileri çek
+                var gyms = await _unitOfWork.Gyms.GetAllAsync();
+                var trainers = await _unitOfWork.Trainers.GetAllAsync();
+                var services = await _unitOfWork.ServiceTypes.GetAllAsync();
+                var appointments = await _unitOfWork.Appointments.GetAllAsync();
+                var members = await _unitOfWork.Members.GetAllAsync();
+
+                // ViewModel oluştur
+                var dashboardData = new AdminDashboardViewModel
+                {
+                    // Aktif sayılar
+                    ActiveGymCount = gyms.Count(g => g.IsActive),
+                    ActiveTrainerCount = trainers.Count(t => t.IsActive),
+                    ActiveServiceCount = services.Count(s => s.IsActive),
+                    ActiveAppointmentCount = appointments.Count(a => a.Status == "Confirmed" || a.Status == "Pending"),
+                    ActiveMemberCount = members.Count(),
+
+                    // Toplam sayılar
+                    TotalGymCount = gyms.Count(),
+                    TotalTrainerCount = trainers.Count(),
+                    TotalServiceCount = services.Count(),
+                    TotalAppointmentCount = appointments.Count(),
+                    TotalMemberCount = members.Count()
+                };
+
+                return View(dashboardData);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "İstatistikler yüklenirken bir hata oluştu: " + ex.Message;
+                return View(new AdminDashboardViewModel());
+            }
         }
 
 
@@ -271,28 +304,6 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
 
 
-
-        public IActionResult ShowServices() 
-        {
-            return View();
-        }
-
-        public IActionResult ShowTrainers()
-        {
-            return View();
-        }
-
-        public IActionResult ShowAppointments()
-        {
-            return View();
-        }
-
-
-
-        public IActionResult ShowMembers()
-        {
-            return View();
-        }
     
     }
 }

@@ -16,5 +16,12 @@ namespace WebProgramlamaOdev.Repositories.Interfaces
         Task<bool> HasConflictAsync(int trainerId, DateTime date, TimeSpan startTime, TimeSpan endTime, int? excludeAppointmentId = null);
         Task<IEnumerable<Appointment>> GetPendingAppointmentsAsync();
         Task<IEnumerable<Appointment>> GetTodaysAppointmentsAsync();
+        
+        // YENİ METODLAR - ADMIN İÇİN
+        Task<IEnumerable<Appointment>> GetAllWithDetailsAsync();
+        Task<bool> ConfirmAppointmentAsync(int appointmentId);
+        Task<bool> CancelAppointmentAsync(int appointmentId);
+        Task<int> GetPendingCountAsync();
+        Task<int> GetTodayAppointmentCountAsync();
     }
 }

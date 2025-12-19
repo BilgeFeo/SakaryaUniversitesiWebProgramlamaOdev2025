@@ -26,6 +26,17 @@ namespace WebProgramlamaOdev.Repositories
                 .FirstOrDefaultAsync(t => t.UserId == userId);
         }
 
+        // ✅ YENİ: ID ile tüm detayları (User, Gym, Services, Appointments) getir
+        public async Task<Trainer?> GetByIdWithDetailsAsync(int id)
+        {
+            return await _dbSet
+                .Include(t => t.User)
+                .Include(t => t.Gym)
+                .Include(t => t.TrainerServiceTypes)
+                .Include(t => t.Appointments)
+                .FirstOrDefaultAsync(t => t.Id == id);
+        }
+
         public async Task<Trainer?> GetWithAvailabilitiesAsync(int trainerId)
         {
             return await _dbSet
@@ -111,5 +122,18 @@ namespace WebProgramlamaOdev.Repositories
         {
             return await _dbSet.AnyAsync(t => t.UserId == userId);
         }
+
+        public async Task<IEnumerable<Trainer>> GetAllAsync()
+        {
+            return await _context.Trainers
+                .Include(t => t.User)                    // ✅ FirstName, LastName için
+                .Include(t => t.Gym)                     // ✅ GymName için
+                .Include(t => t.TrainerServiceTypes)     // ✅ Servis sayısı için
+                .Include(t => t.Appointments)            // ✅ Randevu sayısı için
+                .ToListAsync();
+        }
+
+
+
     }
 }

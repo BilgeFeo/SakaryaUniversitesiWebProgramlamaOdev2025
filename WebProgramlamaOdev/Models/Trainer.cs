@@ -6,9 +6,7 @@ namespace WebProgramlamaOdev.Models
     [Table("Trainer")]
     public class Trainer
     {
-        public Trainer()
-        {
-        }
+       
         [Key]
         public int Id { get; set; }
 

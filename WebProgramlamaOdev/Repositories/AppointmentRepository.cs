@@ -196,6 +196,68 @@ namespace WebProgramlamaOdev.Repositories
                 .OrderBy(a => a.StartTime)
                 .ToListAsync();
         }
+
+        // ============================================
+        // YENİ METODLAR - ADMIN İŞLEMLERİ İÇİN
+        // ============================================
+
+        public async Task<IEnumerable<Appointment>> GetAllWithDetailsAsync()
+        {
+            return await _dbSet
+                .Include(a => a.Member)
+                    .ThenInclude(m => m.User)
+                .Include(a => a.Trainer)
+                    .ThenInclude(t => t.User)
+                .Include(a => a.Trainer)
+                    .ThenInclude(t => t.Gym)
+                .Include(a => a.ServiceType)
+                .OrderByDescending(a => a.CreatedDate)
+                .ToListAsync();
+        }
+
+        public async Task<bool> ConfirmAppointmentAsync(int appointmentId)
+        {
+            var appointment = await GetByIdAsync(appointmentId);
+            
+            if (appointment == null || appointment.Status != "Pending")
+                return false;
+
+            appointment.Status = "Confirmed";
+            appointment.IsConfirmed = true;
+            
+            await UpdateAsync(appointment);
+            
+            return true;
+        }
+
+        public async Task<bool> CancelAppointmentAsync(int appointmentId)
+        {
+            var appointment = await GetByIdAsync(appointmentId);
+            
+            if (appointment == null)
+                return false;
+
+            appointment.Status = "Cancelled";
+            appointment.IsConfirmed = false;
+            
+            await UpdateAsync(appointment);
+            
+            return true;
+        }
+
+        public async Task<int> GetPendingCountAsync()
+        {
+            return await _dbSet.CountAsync(a => a.Status == "Pending");
+        }
+
+        public async Task<int> GetTodayAppointmentCountAsync()
+        {
+            var today = DateTime.Today;
+            
+            return await _dbSet
+                .CountAsync(a => a.AppointmentDate.Date == today && 
+                               a.Status != "Cancelled");
+        }
     }
 }
 
