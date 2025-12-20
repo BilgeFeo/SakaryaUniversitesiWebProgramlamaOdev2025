@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebProgramlamaOdev.Data;
 using WebProgramlamaOdev.DTOs;
@@ -10,7 +11,7 @@ using WebProgramlamaOdev.ViewModels;
 namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
 {
-
+    [Authorize(Roles = "Gym")]
     public class AdminHomeController : Controller
     {
         

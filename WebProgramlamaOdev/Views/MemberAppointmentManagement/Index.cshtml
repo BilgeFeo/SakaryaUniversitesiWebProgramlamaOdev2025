@@ -1,0 +1,226 @@
+﻿@model IEnumerable<WebProgramlamaOdev.ViewModels.AppointmentListViewModel>
+
+@{
+    ViewData["Title"] = "Randevularım";
+    Layout = "_LayoutMemberScreen";
+}
+
+<style>
+    .appointment-card {
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        margin-bottom: 20px;
+        transition: transform 0.3s ease;
+        border-left: 5px solid transparent;
+        overflow: hidden;
+    }
+
+        .appointment-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+    /* Duruma göre sol kenarlık rengi */
+    .status-Pending {
+        border-left-color: #ffc107;
+    }
+
+    .status-Confirmed {
+        border-left-color: #198754;
+    }
+
+    .status-Cancelled {
+        border-left-color: #dc3545;
+    }
+
+    .status-Completed {
+        border-left-color: #0dcaf0;
+    }
+
+    .card-header-custom {
+        padding: 15px 20px;
+        background: #f8f9fa;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #eee;
+    }
+
+    .card-body-custom {
+        padding: 20px;
+    }
+
+    .info-group {
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+        .info-group i {
+            width: 20px;
+            color: #FF8C42;
+            text-align: center;
+        }
+
+    .btn-action {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 50px 20px;
+        background: white;
+        border-radius: 10px;
+        color: #666;
+    }
+</style>
+
+<div class="container pb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+        <div>
+            <h2 class="fw-bold text-dark"><i class="fas fa-calendar-check me-2 text-primary"></i>Randevularım</h2>
+            <p class="text-muted mb-0">Geçmiş ve gelecek tüm randevularınızı buradan yönetebilirsiniz.</p>
+        </div>
+        
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>@TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle me-2"></i>@TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="appointment-card status-@item.Status">
+
+                        <div class="card-header-custom">
+                            <span class="fw-bold text-dark">
+                                <i class="fas fa-calendar-day me-1"></i> @item.AppointmentDate.ToString("dd.MM.yyyy")
+                            </span>
+                            <span class="@item.StatusBadgeClass px-3 py-1 rounded-pill">
+                                @item.StatusText
+                            </span>
+                        </div>
+
+                        <div class="card-body-custom">
+                            <div class="info-group">
+                                <i class="fas fa-clock"></i>
+                                <span class="fw-bold">@item.FormattedTime</span>
+                            </div>
+
+                            <hr class="my-2 opacity-25">
+
+                            <div class="info-group">
+                                <i class="fas fa-dumbbell"></i>
+                                <span>@item.ServiceName</span>
+                            </div>
+
+                            <div class="info-group">
+                                <i class="fas fa-user-tie"></i>
+                                <span>Antrenör: <strong>@item.TrainerName</strong></span>
+                            </div>
+
+                            <div class="info-group">
+                                <i class="fas fa-lira-sign"></i>
+                                <span class="text-success fw-bold">@item.TotalPrice.ToString("N2") ₺</span>
+                            </div>
+
+                            <div class="mt-3 pt-2 border-top">
+                                <div class="row g-2">
+
+                                    @if (item.CanCancel)
+                                    {
+                                        <div class="col">
+                                            <button type="button" class="btn btn-outline-warning btn-sm w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#cancelModal-@item.Id">
+                                                <i class="fas fa-ban me-1"></i> İptal Et
+                                            </button>
+                                        </div>
+                                    }
+
+                                    @if (item.CanDelete)
+                                    {
+                                        <div class="col">
+                                            <button type="button" class="btn btn-outline-danger btn-sm w-100"
+                                                    data-bs-toggle="modal" data-bs-target="#deleteModal-@item.Id">
+                                                <i class="fas fa-trash-alt me-1"></i> Sil
+                                            </button>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="cancelModal-@item.Id" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-warning text-dark">
+                                <h5 class="modal-title"><i class="fas fa-exclamation-circle"></i> Randevu İptali</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p><strong>@item.TrainerName</strong> ile olan <strong>@item.FormattedDateTime</strong> tarihli randevunuzu iptal etmek istediğinize emin misiniz?</p>
+                                <small class="text-muted">İptal edilen randevular antrenöre bildirilir.</small>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                                <form asp-action="CancelAppointment" asp-route-id="@item.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-warning">Evet, İptal Et</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="deleteModal-@item.Id" tabindex="-1">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger text-white">
+                                <h5 class="modal-title"><i class="fas fa-trash"></i> Kaydı Sil</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Bu randevu kaydını sistemden tamamen silmek istediğinize emin misiniz?</p>
+                                <p class="text-danger fw-bold mb-0">Bu işlem geri alınamaz!</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                                <form asp-action="DeleteAppointment" asp-route-id="@item.Id" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-danger">Evet, Sil</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-state shadow-sm">
+            <i class="fas fa-calendar-times fa-4x text-muted mb-3"></i>
+            <h3>Henüz randevunuz bulunmuyor</h3>
+        </div>
+    }
+</div>

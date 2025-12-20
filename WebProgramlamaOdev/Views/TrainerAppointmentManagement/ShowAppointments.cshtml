@@ -1,0 +1,245 @@
+﻿@model IEnumerable<WebProgramlamaOdev.ViewModels.AppointmentListViewModel>
+
+@{
+    ViewData["Title"] = "Randevularım";
+    var currentStatus = ViewBag.CurrentStatus as string;
+    // DİKKAT: Burası Admin Layout değil, Trainer Layout olmalı
+    Layout = "_LayoutTrainerScreen";
+}
+
+<style>
+    .table thead th {
+        vertical-align: middle;
+    }
+
+    .btn-group-sm > .btn {
+        margin: 0 2px;
+    }
+
+    .card {
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        margin-bottom: 20px;
+    }
+
+    .badge {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .table-responsive {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+</style>
+
+<div class="container-fluid mt-4">
+
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-calendar-alt"></i> Randevu Takvimi
+                    </h4>
+                    <span class="badge bg-light text-dark">
+                        Toplam: @ViewBag.TotalAppointments
+                    </span>
+                </div>
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="card bg-warning text-white">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-clock fa-2x mb-2"></i>
+                                    <h3>@ViewBag.PendingCount</h3>
+                                    <p class="mb-0">Bekleyen</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-success text-white">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-check-circle fa-2x mb-2"></i>
+                                    <h3>@ViewBag.ConfirmedCount</h3>
+                                    <p class="mb-0">Onaylı</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-danger text-white">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-times-circle fa-2x mb-2"></i>
+                                    <h3>@ViewBag.CancelledCount</h3>
+                                    <p class="mb-0">İptal</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card bg-info text-white">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-flag-checkered fa-2x mb-2"></i>
+                                    <h3>@ViewBag.CompletedCount</h3>
+                                    <p class="mb-0">Biten</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="btn-group" role="group">
+                <a asp-action="ShowAppointments" class="btn @(string.IsNullOrEmpty(currentStatus) ? "btn-primary" : "btn-outline-primary")">
+                    <i class="fas fa-list"></i> Tümü
+                </a>
+                <a asp-action="ShowAppointments" asp-route-status="Pending" class="btn @(currentStatus == "Pending" ? "btn-warning" : "btn-outline-warning")">
+                    <i class="fas fa-clock"></i> Bekleyen
+                </a>
+                <a asp-action="ShowAppointments" asp-route-status="Confirmed" class="btn @(currentStatus == "Confirmed" ? "btn-success" : "btn-outline-success")">
+                    <i class="fas fa-check-circle"></i> Onaylı
+                </a>
+                <a asp-action="ShowAppointments" asp-route-status="Cancelled" class="btn @(currentStatus == "Cancelled" ? "btn-danger" : "btn-outline-danger")">
+                    <i class="fas fa-times-circle"></i> İptal
+                </a>
+                <a asp-action="ShowAppointments" asp-route-status="Completed" class="btn @(currentStatus == "Completed" ? "btn-info" : "btn-outline-info")">
+                    <i class="fas fa-flag-checkered"></i> Biten
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="fas fa-exclamation-triangle"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover table-striped" id="appointmentsTable">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th>Tarih</th>
+                                        <th>Saat</th>
+                                        <th>Öğrenci (Üye)</th>
+                                        <th>Hizmet</th>
+                                        <th>Durum</th>
+                                        <th>Ücret</th>
+                                        <th class="text-center">İşlemler</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var appointment in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <i class="fas fa-calendar"></i> @appointment.AppointmentDate.ToString("dd.MM.yyyy")
+                                            </td>
+                                            <td>
+                                                <i class="fas fa-clock"></i> @appointment.FormattedTime
+                                            </td>
+                                            <td>
+                                                <strong>@appointment.MemberName</strong><br />
+                                                <small class="text-muted"><i class="fas fa-phone"></i> @appointment.MemberPhone</small>
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-light text-dark border">@appointment.ServiceName</span>
+                                            </td>
+                                            <td>
+                                                <span class="@appointment.StatusBadgeClass">@appointment.StatusText</span>
+                                            </td>
+                                            <td>
+                                                <strong class="text-success">@appointment.TotalPrice.ToString("C")</strong>
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="btn-group btn-group-sm">
+
+                                                    <a asp-action="AppointmentDetails" asp-route-id="@appointment.Id" class="btn btn-info" title="Detaylar">
+                                                        <i class="fas fa-info-circle"></i>
+                                                    </a>
+
+                                                    @if (appointment.CanConfirm)
+                                                    {
+                                                        <form asp-action="ConfirmAppointment" asp-route-id="@appointment.Id" method="post" class="d-inline" onsubmit="return confirm('Bu randevuyu onaylıyor musunuz?');">
+                                                            @Html.AntiForgeryToken()
+                                                            <button type="submit" class="btn btn-success" title="Onayla"><i class="fas fa-check"></i></button>
+                                                        </form>
+                                                    }
+
+                                                    @if (appointment.CanCancel)
+                                                    {
+                                                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#cancelModal@(appointment.Id)" title="İptal Et">
+                                                            <i class="fas fa-ban"></i>
+                                                        </button>
+                                                    }
+
+                                                    @if (appointment.Status == "Cancelled" || appointment.Status == "Pending")
+                                                    {
+                                                        <form asp-action="DeleteAppointment" asp-route-id="@appointment.Id" method="post" class="d-inline" onsubmit="return confirm('Bu kaydı silmek istediğinize emin misiniz?');">
+                                                            @Html.AntiForgeryToken()
+                                                            <button type="submit" class="btn btn-danger" title="Sil"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <div class="modal fade" id="cancelModal@(appointment.Id)" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header bg-warning text-dark">
+                                                        <h5 class="modal-title"><i class="fas fa-ban"></i> Randevu İptal</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <form asp-action="CancelAppointment" asp-route-id="@appointment.Id" method="post">
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="modal-body">
+                                                            <p><strong>@appointment.MemberName</strong> adlı üyenin randevusunu iptal etmek üzeresiniz.</p>
+                                                            <div class="form-group">
+                                                                <label>İptal Nedeni:</label>
+                                                                <textarea class="form-control" name="reason" rows="3"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Vazgeç</button>
+                                                            <button type="submit" class="btn btn-warning">İptal Et</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info text-center">
+                            <h5><i class="fas fa-info-circle"></i> Bu kriterlere uygun randevu bulunamadı.</h5>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

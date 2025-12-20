@@ -1,3 +1,4 @@
+wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
@@ -57,4 +58,14 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
-wwwroot\css\site.css
+wwwroot\uploads\ai_input\0227689b-26d5-47e0-b8e6-20e6339316ae_Başlıksız.jpg
+wwwroot\uploads\ai_input\1e3f2ceb-a18c-43eb-aab6-10baab0474d2_Başlıksız.jpg
+wwwroot\uploads\ai_input\55b0b0e4-4ad7-4377-b2fa-6871d9e449b5_Başlıksız.jpg
+wwwroot\uploads\ai_input\5fb55e93-f40d-4d81-b99f-61d5100688e9_Başlıksız.jpg
+wwwroot\uploads\ai_input\6c47578c-c5f6-402b-9d94-50e61d08fb43_Başlıksız.jpg
+wwwroot\uploads\ai_input\a1ff1625-9c2a-4fe6-af53-525bfb09df52_Başlıksız.jpg
+wwwroot\uploads\ai_input\ba60bd0a-0fe4-4111-8e6c-2d447b9c68e3_Başlıksız.jpg
+wwwroot\uploads\ai_input\ca6989c8-ab08-4ad9-8fe9-cf72b7a050c8_Başlıksız.jpg
+wwwroot\uploads\ai_input\e0dc2b27-1248-47a8-a293-116dd181a3c7_Başlıksız.jpg
+wwwroot\uploads\ai_output\ai_gen_4b9f4932-0a18-4ede-b762-db73a159e87c.jpg
+wwwroot\uploads\ai_output\ai_gen_9ccf5dd0-b61d-414f-a28e-3340d8888f1b.jpg

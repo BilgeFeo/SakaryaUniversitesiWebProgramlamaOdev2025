@@ -1,0 +1,196 @@
+﻿@{
+    ViewData["Title"] = "Eğitmenlerimiz";
+    Layout = "_LayoutMemberScreen";
+}
+
+<style>
+    /* Kart Tasarımı */
+    .trainer-card {
+        transition: all 0.3s ease;
+        border: none;
+        border-radius: 15px;
+        overflow: hidden;
+        background: white;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        height: 100%;
+    }
+
+        .trainer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(255, 140, 66, 0.2);
+        }
+
+    /* Üst Kısım (Header) */
+    .trainer-header {
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);
+        padding: 25px 15px;
+        text-align: center;
+        color: white;
+        position: relative;
+    }
+
+    .avatar-circle {
+        width: 90px;
+        height: 90px;
+        background: white;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 40px;
+        color: #FF8C42;
+        margin-bottom: 10px;
+        border: 5px solid rgba(255,255,255,0.3);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    /* İçerik Kısmı */
+    .trainer-body {
+        padding: 20px;
+    }
+
+    .spec-badge {
+        background-color: #fff3e0;
+        color: #e65100;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        display: inline-block;
+        margin-bottom: 15px;
+        border: 1px solid #ffe0b2;
+    }
+
+    .info-row {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .info-icon {
+        width: 25px;
+        text-align: center;
+        margin-right: 10px;
+    }
+
+    /* Yükleniyor Animasyonu */
+    #loading-spinner {
+        text-align: center;
+        padding: 80px;
+        color: #FF8C42;
+    }
+</style>
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-dark display-6">Profesyonel Eğitmenlerimiz</h2>
+        <p class="text-muted lead">Hedeflerinize ulaşmanız için uzman kadromuz yanınızda.</p>
+    </div>
+
+    <div id="loading-spinner">
+        <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+            <span class="visually-hidden">Yükleniyor...</span>
+        </div>
+        <p class="mt-3 fs-5">Eğitmenler listeleniyor...</p>
+    </div>
+
+    <div id="error-message" class="alert alert-danger d-none text-center">
+        <i class="fas fa-exclamation-circle me-2"></i>Veriler yüklenirken bir sorun oluştu. Lütfen sayfayı yenileyin.
+    </div>
+
+    <div class="row g-4" id="trainers-container"></div>
+
+</div>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            loadTrainers();
+        });
+
+        // 1. API'den Veriyi Çek
+        function loadTrainers() {
+            $.ajax({
+                url: '/api/TrainersApi', // API Adresi
+                type: 'GET',
+                success: function (data) {
+                    // Yükleniyor animasyonunu gizle
+                    $('#loading-spinner').addClass('d-none');
+                    // Veriyi ekrana bas
+                    renderTrainers(data);
+                },
+                error: function (err) {
+                    console.error('API Hatası:', err);
+                    $('#loading-spinner').addClass('d-none');
+                    $('#error-message').removeClass('d-none');
+                }
+            });
+        }
+
+        // 2. HTML Kartlarını Oluştur
+        function renderTrainers(trainers) {
+            const container = $('#trainers-container');
+            container.empty();
+
+            if (trainers.length === 0) {
+                container.html(`
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-user-slash fa-4x text-muted mb-3"></i>
+                        <h4>Şu an aktif eğitmen bulunmamaktadır.</h4>
+                    </div>
+                `);
+                return;
+            }
+
+            trainers.forEach(trainer => {
+                const cardHtml = `
+                    <div class="col-md-6 col-lg-4 col-xl-3">
+                        <div class="trainer-card h-100">
+                            <div class="trainer-header">
+                                <div class="avatar-circle">
+                                    <i class="fas fa-user-tie"></i>
+                                </div>
+                                <h5 class="mb-0 fw-bold">${trainer.fullName}</h5>
+                                <div class="mt-2">
+                                    <span class="spec-badge">
+                                        <i class="fas fa-certificate me-1"></i> ${trainer.specialization}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="trainer-body">
+
+                                <div class="info-row">
+                                    <div class="info-icon text-warning"><i class="fas fa-building"></i></div>
+                                    <span class="fw-bold text-dark">${trainer.gymName}</span>
+                                </div>
+
+                                <div class="info-row" title="${trainer.email}">
+                                    <div class="info-icon text-primary"><i class="fas fa-envelope"></i></div>
+                                    <span class="text-truncate" style="max-width: 200px;">${trainer.email}</span>
+                                </div>
+
+                                <div class="info-row">
+                                    <div class="info-icon text-success"><i class="fas fa-phone"></i></div>
+                                    <span>${trainer.phoneNumber}</span>
+                                </div>
+
+                                <hr class="my-3 opacity-25">
+
+                                <div class="d-grid gap-2">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.append(cardHtml);
+            });
+        }
+    </script>
+}

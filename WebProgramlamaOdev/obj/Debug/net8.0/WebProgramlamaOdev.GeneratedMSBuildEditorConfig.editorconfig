@@ -44,6 +44,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dHeW1zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminMemberManagement/EditMember.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5NZW1iZXJNYW5hZ2VtZW50XEVkaXRNZW1iZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminMemberManagement/ShowMembers.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5NZW1iZXJNYW5hZ2VtZW50XFNob3dNZW1iZXJzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminServiceManagement/CreateService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZXJ2aWNlTWFuYWdlbWVudFxDcmVhdGVTZXJ2aWNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -84,8 +92,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVc2VyTG9naW5BdHRlbXB0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAIPlan/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQUlQbGFuXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAIRecommendation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQUlSZWNvbW1lbmRhdGlvblxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAppointmentManagement/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQXBwb2ludG1lbnRNYW5hZ2VtZW50XENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAppointmentManagement/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQXBwb2ludG1lbnRNYW5hZ2VtZW50XEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberHome/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVySG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberTrainer/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyVHJhaW5lclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/Error.cshtml]
@@ -100,8 +128,32 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRNZW1iZXJTY3JlZW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_LayoutTrainerScreen.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUcmFpbmVyU2NyZWVuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerAccountManagement/UpdateProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckFjY291bnRNYW5hZ2VtZW50XFVwZGF0ZVByb2ZpbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerAppointmentManagement/ShowAppointments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckFwcG9pbnRtZW50TWFuYWdlbWVudFxTaG93QXBwb2ludG1lbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerHome/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckhvbWVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerHome/ShowAppointments.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckhvbWVcU2hvd0FwcG9pbnRtZW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerServiceManagement/ShowServices.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lclNlcnZpY2VNYW5hZ2VtZW50XFNob3dTZXJ2aWNlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/_ViewImports.cshtml]

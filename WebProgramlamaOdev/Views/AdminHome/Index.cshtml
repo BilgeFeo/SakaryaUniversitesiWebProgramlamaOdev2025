@@ -291,23 +291,7 @@
 
     <!-- İstatistik Kartları -->
     <div class="stats-grid">
-        <!-- Aktif Spor Salonları -->
-        <div class="stat-card gym">
-            <div class="stat-card-content">
-                <div class="stat-icon-wrapper">
-                    <i class="fas fa-building stat-icon"></i>
-                </div>
-                <div class="stat-title">Aktif Spor Salonları</div>
-                <div class="stat-value">
-                    @Model.ActiveGymCount
-                    <span class="stat-total">/ @Model.TotalGymCount</span>
-                </div>
-                <div class="stat-label">
-                    <i class="fas fa-info-circle"></i>
-                    Toplam salon sayısı
-                </div>
-            </div>
-        </div>
+       
 
         <!-- Aktif Antrenörler -->
         <div class="stat-card trainer">
@@ -389,11 +373,8 @@
             Hızlı Erişim
         </h3>
         <div class="action-buttons">
-            <a asp-controller="AdminHome" asp-action="ShowGyms" class="action-btn">
-                <i class="fas fa-building"></i>
-                <span>Spor Salonları</span>
-            </a>
-            <a asp-controller="AdminHome" asp-action="ShowTrainers" class="action-btn">
+            
+            <a asp-controller="AdminTrainerManagement" asp-action="ShowTrainers" class="action-btn">
                 <i class="fas fa-user-tie"></i>
                 <span>Antrenörler</span>
             </a>
@@ -401,11 +382,11 @@
                 <i class="fas fa-dumbbell"></i>
                 <span>Servisler</span>
             </a>
-            <a asp-controller="AdminHome" asp-action="ShowAppointments" class="action-btn">
+            <a asp-controller="AdminAppointmentManagement" asp-action="ShowAppointments" class="action-btn">
                 <i class="fas fa-calendar-check"></i>
                 <span>Randevular</span>
             </a>
-            <a asp-controller="AdminHome" asp-action="ShowMembers" class="action-btn">
+            <a asp-controller="AdminMemberManagement" asp-action="ShowMembers" class="action-btn">
                 <i class="fas fa-users"></i>
                 <span>Üyeler</span>
             </a>
@@ -439,9 +420,7 @@
         // Kartlara tıklama ile ilgili sayfaya gitme
         document.querySelectorAll('.stat-card').forEach(card => {
             card.addEventListener('click', function() {
-                if (this.classList.contains('gym')) {
-                    window.location.href = '@Url.Action("ShowGyms", "AdminHome")';
-                } else if (this.classList.contains('trainer')) {
+               if (this.classList.contains('trainer')) {
                     window.location.href = '@Url.Action("ShowTrainers", "AdminHome")';
                 } else if (this.classList.contains('service')) {
                     window.location.href = '@Url.Action("ShowServices", "AdminServiceManagement")';

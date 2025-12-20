@@ -62,7 +62,6 @@ namespace WebProgramlamaOdev.Repositories
             }
         }
 
-        // ✅ YENİ EKLEME
         public IServiceTypeRepository ServiceTypes
         {
             get
@@ -123,7 +122,6 @@ namespace WebProgramlamaOdev.Repositories
             }
         }
 
-        // Transaction Methods
         public async Task<int> SaveChangesAsync()
         {
             return await _context.SaveChangesAsync();

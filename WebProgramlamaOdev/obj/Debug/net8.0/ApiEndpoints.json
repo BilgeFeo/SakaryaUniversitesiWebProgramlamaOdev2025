@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "ContainingType": "WebProgramlamaOdev.Controllers.Api.TrainersApiController",
+    "Method": "GetTrainers",
+    "RelativePath": "api/TrainersApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

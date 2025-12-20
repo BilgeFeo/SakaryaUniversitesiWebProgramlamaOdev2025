@@ -54,7 +54,7 @@ namespace WebProgramlamaOdev.Services.HomePageServices
 
                 
             };
-
+            bool isSuccess = await _MemberRepository.AddAsync(newMemberProfile);
             if (!await _MemberRepository.AddAsync(newMemberProfile))
             {
                 

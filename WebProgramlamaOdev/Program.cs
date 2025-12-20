@@ -4,6 +4,7 @@ using WebProgramlamaOdev.Data;
 using WebProgramlamaOdev.Models;
 using WebProgramlamaOdev.Repositories;
 using WebProgramlamaOdev.Repositories.Interfaces;
+using WebProgramlamaOdev.Services;
 using WebProgramlamaOdev.Services.AdminPageServices;
 using WebProgramlamaOdev.Services.HomePageServices;
 using WebProgramlamaOdev.Services.ServiceInterfaces;
@@ -59,8 +60,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<ISignUpService, SignUpService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGymManagementService,GymManagementService>();
-
-
+builder.Services.AddScoped<IAIPhotoService, HuggingFaceAIPhotoService>();
+builder.Services.AddScoped<IGeminiTextService, GeminiTextService>();
 //Repository Tanimlamalari
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>();

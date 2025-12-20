@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using WebProgramlamaOdev.DTOs;
 using WebProgramlamaOdev.Repositories.Interfaces;
@@ -6,6 +7,7 @@ using WebProgramlamaOdev.ViewModels;
 
 namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 {
+    [Authorize(Roles = "Gym")]
     public class AdminServiceManagementController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -15,9 +17,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             _unitOfWork = unitOfWork;
         }
 
-        // ============================================
-        // SHOW SERVICES - Servisleri Listele
-        // ============================================
+        
         public async Task<IActionResult> ShowServices()
         {
             try

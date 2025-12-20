@@ -1,0 +1,480 @@
+@model WebProgramlamaOdev.DTOs.UpdateMemberRequestDto
+
+@{
+    ViewData["Title"] = "Üye Düzenle";
+    Layout = "_LayoutAdminScreen";
+}
+
+<style>
+    .create-container {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .create-card {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .create-header {
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);
+        color: white;
+        padding: 25px 30px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+        .create-header i {
+            font-size: 32px;
+        }
+
+        .create-header h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+    .create-body {
+        padding: 30px;
+    }
+
+    .form-section {
+        margin-bottom: 30px;
+    }
+
+    .section-title {
+        color: #FF8C42;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #FFB380;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-label {
+        display: block;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+        .form-label i {
+            color: #FF8C42;
+            margin-right: 8px;
+            width: 16px;
+        }
+
+        .form-label .required {
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+    .form-control {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 6px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #FF8C42;
+            box-shadow: 0 0 0 3px rgba(255, 140, 66, 0.1);
+        }
+
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+
+            .form-control.is-invalid:focus {
+                box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+            }
+
+    .invalid-feedback {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+        display: block;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .radio-group {
+        display: flex;
+        gap: 20px;
+        margin-top: 10px;
+    }
+
+    .radio-option {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 15px;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .radio-option:hover {
+            background-color: #fff3e6;
+        }
+
+        .radio-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #FF8C42;
+        }
+
+        .radio-option label {
+            cursor: pointer;
+            font-weight: 500;
+            margin: 0;
+        }
+
+    .form-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        padding-top: 25px;
+        border-top: 2px solid #e0e0e0;
+        margin-top: 30px;
+    }
+
+    .btn {
+        padding: 12px 30px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-primary {
+        background-color: #FF8C42;
+        color: white;
+    }
+
+        .btn-primary:hover {
+            background-color: #e67a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 140, 66, 0.4);
+        }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+    }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            color: white;
+        }
+
+    .alert {
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+    }
+
+        .alert-danger i {
+            font-size: 20px;
+            color: #dc3545;
+        }
+
+    .info-box {
+        background-color: #e7f3ff;
+        border-left: 4px solid #2196F3;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 25px;
+    }
+
+        .info-box i {
+            color: #2196F3;
+            margin-right: 10px;
+        }
+
+        .info-box p {
+            margin: 0;
+            color: #0d47a1;
+            font-size: 14px;
+        }
+
+    .password-match {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 4px;
+        font-size: 13px;
+        display: none;
+    }
+
+        .password-match.match {
+            background-color: #d4edda;
+            color: #155724;
+            display: block;
+        }
+
+        .password-match.no-match {
+            background-color: #f8d7da;
+            color: #721c24;
+            display: block;
+        }
+
+    @@media (max-width: 768px) {
+        .create-body {
+            padding: 20px;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .form-footer {
+            flex-direction: column;
+        }
+
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+</style>
+
+<div class="create-container">
+    <div class="create-card">
+        <div class="create-header">
+            <i class="fas fa-edit"></i>
+            <div>
+                <h2>Üye Düzenle</h2>
+                <small style="opacity: 0.9;">ID: @Model.Id - @Model.FirstName @Model.LastName</small>
+            </div>
+        </div>
+
+        <div class="create-body">
+            @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+            {
+                <div class="alert alert-danger">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <div>
+                        <strong>Lütfen aşağıdaki hataları düzeltin:</strong>
+                        <ul style="margin: 5px 0 0 0; padding-left: 20px;">
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            }
+
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i>
+                <p>Bu formu kullanarak üye bilgilerini güncelleyebilirsiniz. Şifre değişikliği için ayrı bir işlem gereklidir.</p>
+            </div>
+
+            <form asp-controller="AdminMemberManagement" asp-action="EditMember" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="UserId" />
+
+                <!-- Kişisel Bilgiler -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user"></i>
+                        <span>Kişisel Bilgiler</span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="FirstName">
+                                <i class="fas fa-user"></i>
+                                Ad
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text"
+                                   class="form-control @(ViewData.ModelState["FirstName"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   asp-for="FirstName"
+                                   placeholder="Örn: Ahmet" />
+                            <span asp-validation-for="FirstName" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" asp-for="LastName">
+                                <i class="fas fa-user"></i>
+                                Soyad
+                                <span class="required">*</span>
+                            </label>
+                            <input type="text"
+                                   class="form-control @(ViewData.ModelState["LastName"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   asp-for="LastName"
+                                   placeholder="Örn: Yılmaz" />
+                            <span asp-validation-for="LastName" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- İletişim Bilgileri -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-address-book"></i>
+                        <span>İletişim Bilgileri</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" asp-for="Email">
+                            <i class="fas fa-envelope"></i>
+                            E-posta Adresi
+                            <span class="required">*</span>
+                        </label>
+                        <input type="email"
+                               class="form-control @(ViewData.ModelState["Email"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                               asp-for="Email"
+                               placeholder="ornek@email.com" />
+                        <span asp-validation-for="Email" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" asp-for="PhoneNumber">
+                            <i class="fas fa-phone"></i>
+                            Telefon Numarası
+                            <span class="required">*</span>
+                        </label>
+                        <input type="tel"
+                               class="form-control @(ViewData.ModelState["PhoneNumber"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                               asp-for="PhoneNumber"
+                               placeholder="0555 123 4567" />
+                        <span asp-validation-for="PhoneNumber" class="invalid-feedback"></span>
+                    </div>
+                </div>
+
+                <!-- Fiziksel Bilgiler -->
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Fiziksel Bilgiler</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" asp-for="DateOfBirth">
+                            <i class="fas fa-calendar"></i>
+                            Doğum Tarihi
+                            <span class="required">*</span>
+                        </label>
+                        <input type="date"
+                               class="form-control @(ViewData.ModelState["DateOfBirth"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                               asp-for="DateOfBirth"
+                               max="@DateTime.Now.AddYears(-10).ToString("yyyy-MM-dd")" />
+                        <span asp-validation-for="DateOfBirth" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">
+                            <i class="fas fa-venus-mars"></i>
+                            Cinsiyet
+                            <span class="required">*</span>
+                        </label>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" asp-for="Gender" value="Male" id="genderMale" checked />
+                                <label for="genderMale">
+                                    <i class="fas fa-mars" style="color: #0c5460;"></i>
+                                    Erkek
+                                </label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" asp-for="Gender" value="Female" id="genderFemale" />
+                                <label for="genderFemale">
+                                    <i class="fas fa-venus" style="color: #721c24;"></i>
+                                    Kadın
+                                </label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Gender" class="invalid-feedback"></span>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Height">
+                                <i class="fas fa-ruler-vertical"></i>
+                                Boy (cm)
+                                <span class="required">*</span>
+                            </label>
+                            <input type="number"
+                                   class="form-control @(ViewData.ModelState["Height"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   asp-for="Height"
+                                   min="50"
+                                   max="250"
+                                   placeholder="Örn: 175" />
+                            <span asp-validation-for="Height" class="invalid-feedback"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" asp-for="Weight">
+                                <i class="fas fa-weight"></i>
+                                Kilo (kg)
+                                <span class="required">*</span>
+                            </label>
+                            <input type="number"
+                                   class="form-control @(ViewData.ModelState["Weight"]?.Errors.Count > 0 ? "is-invalid" : "")"
+                                   asp-for="Weight"
+                                   min="20"
+                                   max="300"
+                                   step="0.1"
+                                   placeholder="Örn: 70" />
+                            <span asp-validation-for="Weight" class="invalid-feedback"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Butonları -->
+                <div class="form-footer">
+                    <a asp-controller="AdminMemberManagement" asp-action="ShowMembers" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>
+                        İptal / Geri Dön
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Değişiklikleri Kaydet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

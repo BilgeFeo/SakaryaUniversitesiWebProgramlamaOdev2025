@@ -7,9 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\GymPageControllers\" />
-    <Folder Include="Controllers\TrainerPageControllers\" />
     <Folder Include="Views\AdminServiceManagement\" />
+    <Folder Include="Views\AdminMemberManagement\" />
+    <Folder Include="Views\TrainerServiceManagement\" />
+    <Folder Include="Views\TrainerHome\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +27,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 
 </Project>

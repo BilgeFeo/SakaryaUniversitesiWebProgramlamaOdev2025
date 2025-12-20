@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using WebProgramlamaOdev.Data;
 using WebProgramlamaOdev.DTOs;
 using WebProgramlamaOdev.Models;
@@ -10,6 +11,7 @@ using WebProgramlamaOdev.ViewModels;
 
 namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 {
+    [Authorize(Roles = "Gym")]
     public class AdminTrainerManagementController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -152,15 +154,13 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             }
         }
 
-        // ============================================
-        // EDIT TRAINER - Antrenör Düzenleme (GET)
-        // ============================================
+        
         [HttpGet]
         public async Task<IActionResult> EditTrainer(int id)
         {
             try
             {
-                // ✅ DÜZELTME: GetByIdWithDetailsAsync kullan (User ve Gym bilgilerini yükle)
+                
                 var trainer = await _unitOfWork.Trainers.GetByIdWithDetailsAsync(id);
                 
                 if (trainer == null)
@@ -195,9 +195,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             }
         }
 
-        // ============================================
-        // EDIT TRAINER - Antrenör Düzenleme (POST)
-        // ============================================
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditTrainer(UpdateTrainerRequestDto model)
@@ -212,7 +210,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
             try
             {
-                // ✅ DÜZELTME: GetByIdWithDetailsAsync kullan
+               
                 var trainer = await _unitOfWork.Trainers.GetByIdWithDetailsAsync(model.Id);
                 
                 if (trainer == null)
@@ -221,12 +219,12 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
                     return RedirectToAction(nameof(ShowTrainers));
                 }
 
-                // Trainer bilgilerini güncelle
+                
                 trainer.GymId = model.GymId;
                 trainer.Specialization = model.Specialization;
                 trainer.IsActive = model.IsActive;
 
-                // ApplicationUser bilgilerini güncelle
+                
                 if (trainer.User != null)
                 {
                     trainer.User.FirstName = model.FirstName;
@@ -244,7 +242,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
                             ModelState.AddModelError(string.Empty, error.Description);
                         }
                         
-                        // Hata durumunda gym listesini tekrar yükle
+                        
                         var gyms = await _unitOfWork.Gyms.GetAllAsync();
                         ViewBag.Gyms = new SelectList(gyms.Where(g => g.IsActive), "Id", "Name", model.GymId);
                         return View("EditTrainer", model);
@@ -261,16 +259,14 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
             {
                 TempData["ErrorMessage"] = "Güncelleme sırasında hata oluştu: " + ex.Message;
                 
-                // Hata durumunda gym listesini tekrar yükle
+                
                 var gyms = await _unitOfWork.Gyms.GetAllAsync();
                 ViewBag.Gyms = new SelectList(gyms.Where(g => g.IsActive), "Id", "Name", model.GymId);
                 return View("EditTrainer", model);
             }
         }
 
-        // ============================================
-        // DELETE TRAINER - Antrenör Silme (POST)
-        // ============================================
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteTrainer(int id)
@@ -282,7 +278,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
                 if (trainer == null)
                 {
-                    TempData["ErrorMessage"] = "❌ Silinmek istenen antrenör bulunamadı.";
+                    TempData["ErrorMessage"] = " Silinmek istenen antrenör bulunamadı.";
                     return RedirectToAction(nameof(ShowTrainers));
                 }
 
@@ -304,7 +300,7 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
                     await _unitOfWork.SaveChangesAsync();
 
-                    Console.WriteLine($"✅ {serviceCount} ServicesByTrainer kaydı silindi.");
+                    Console.WriteLine($" {serviceCount} ServicesByTrainer kaydı silindi.");
                 }
 
                 
@@ -341,22 +337,22 @@ namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 
                     if (!deleteUserResult.Succeeded)
                     {
-                        TempData["ErrorMessage"] = $"⚠️ {trainerName} silindi ama kullanıcı hesabı silinemedi: "
+                        TempData["ErrorMessage"] = $" {trainerName} silindi ama kullanıcı hesabı silinemedi: "
                             + string.Join(", ", deleteUserResult.Errors.Select(e => e.Description));
                         return RedirectToAction(nameof(ShowTrainers));
                     }
                 }
 
-                TempData["SuccessMessage"] = $"✅ {trainerName} ve tüm ilişkili kayıtlar başarıyla silindi!";
+                TempData["SuccessMessage"] = $" {trainerName} ve tüm ilişkili kayıtlar başarıyla silindi!";
             }
             catch (Microsoft.EntityFrameworkCore.DbUpdateException dbEx)
             {
                 var innerMsg = dbEx.InnerException?.Message ?? dbEx.Message;
-                TempData["ErrorMessage"] = $"❌ Database hatası: {innerMsg}";
+                TempData["ErrorMessage"] = $" Database hatası: {innerMsg}";
             }
             catch (Exception ex)
             {
-                TempData["ErrorMessage"] = $"❌ Silme hatası: {ex.Message}" +
+                TempData["ErrorMessage"] = $" Silme hatası: {ex.Message}" +
                     (ex.InnerException != null ? $" | İç hata: {ex.InnerException.Message}" : "");
             }
 

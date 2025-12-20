@@ -23,36 +23,38 @@ namespace WebProgramlamaOdev.Services.HomePageServices
         }
 
 
-        public async Task<Dictionary<string, ApplicationUser>> GetAllUsersMapAsync()
+        public async Task<ApplicationUser> GetUserByEmailAsync(string LoginAttemptEmail)
         {
             var users = await _userRepository.GetAllAsync();
 
             var userMap = users
                 .Where(u => !string.IsNullOrEmpty(u.Email))
                 .ToDictionary(u => u.Email!, u => u);
+            if (userMap.ContainsKey(LoginAttemptEmail))
+            {
+                return userMap[LoginAttemptEmail];
+            }
 
-            return userMap;
+            return null;
         }
 
 
 
         public async Task<string> ValidateUser(string LoginAttemptEmail, string LoginAttemptPassword)
         {
-            Dictionary<string, ApplicationUser> AllUsersMapWithEmail = await GetAllUsersMapAsync();
+           ApplicationUser user = await GetUserByEmailAsync(LoginAttemptEmail);
 
 
-            if (AllUsersMapWithEmail.ContainsKey(LoginAttemptEmail))
+            if (user !=null)
             {
-                 ApplicationUser CurrentAppUser= AllUsersMapWithEmail[LoginAttemptEmail];
-                bool isVerified = await Task.Run(() =>BCrypt.Net.BCrypt.Verify(LoginAttemptPassword, CurrentAppUser.PasswordHash));
+                 
+                bool isVerified = await Task.Run(() =>BCrypt.Net.BCrypt.Verify(LoginAttemptPassword, user.PasswordHash));
                 if (isVerified)
                 {
                   
-                    return AllUsersMapWithEmail[LoginAttemptEmail].UserType;
+                    return user.UserType;
                 }
             
-                
-
 
             }
 

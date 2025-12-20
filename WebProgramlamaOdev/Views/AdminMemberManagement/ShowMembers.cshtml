@@ -1,0 +1,601 @@
+@model List<WebProgramlamaOdev.ViewModels.MemberListViewModel>
+
+@{
+    ViewData["Title"] = "Üyeler";
+    Layout = "_LayoutAdminScreen";
+}
+
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);
+        border-radius: 8px;
+        padding: 25px;
+        color: white;
+        box-shadow: 0 4px 15px rgba(255, 140, 66, 0.3);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(255, 140, 66, 0.4);
+        }
+
+    .stat-icon {
+        font-size: 48px;
+        opacity: 0.9;
+        margin-bottom: 15px;
+    }
+
+    .stat-label {
+        font-size: 14px;
+        opacity: 0.9;
+        margin-bottom: 8px;
+        font-weight: 500;
+    }
+
+    .stat-value {
+        font-size: 36px;
+        font-weight: bold;
+        margin: 0;
+    }
+
+    .member-table-wrapper {
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .table-header {
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);
+        color: white;
+        padding: 20px 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .table-header h3 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+    .member-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+        .member-table thead {
+            background-color: #f8f9fa;
+        }
+
+        .member-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+            border-bottom: 2px solid #dee2e6;
+            font-size: 14px;
+        }
+
+        .member-table td {
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+
+        .member-table tbody tr {
+            transition: background-color 0.2s ease;
+        }
+
+            .member-table tbody tr:hover {
+                background-color: #fff5f0;
+            }
+
+    .member-name {
+        font-weight: 600;
+        color: #FF8C42;
+        font-size: 16px;
+    }
+
+    .member-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #666;
+        font-size: 14px;
+        margin: 4px 0;
+    }
+
+        .member-info i {
+            color: #FF8C42;
+            width: 16px;
+        }
+
+    .badge-custom {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .badge-gender-male {
+        background-color: #d1ecf1;
+        color: #0c5460;
+    }
+
+    .badge-gender-female {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+
+    .badge-count {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .action-buttons {
+        display: flex;
+        gap: 8px;
+    }
+
+    .btn-action {
+        padding: 8px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-edit {
+        background-color: #ffc107;
+        color: #333;
+    }
+
+        .btn-edit:hover {
+            background-color: #e0a800;
+            color: #333;
+        }
+
+    .btn-delete {
+        background-color: #dc3545;
+        color: white;
+    }
+
+        .btn-delete:hover {
+            background-color: #c82333;
+            color: white;
+        }
+
+    .btn-add {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+
+        .btn-add:hover {
+            background-color: #218838;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+        }
+
+    .alert-custom {
+        padding: 15px 20px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideDown 0.3s ease;
+    }
+
+    @@keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+    }
+
+    .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+    }
+
+        .empty-state i {
+            font-size: 80px;
+            color: #FFB380;
+            margin-bottom: 20px;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+    .modal-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .modal-content-custom {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: white;
+        border-radius: 8px;
+        padding: 0;
+        max-width: 500px;
+        width: 90%;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        animation: slideUp 0.3s ease;
+    }
+
+    .modal-header-custom {
+        background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+        color: white;
+        padding: 20px 25px;
+        border-radius: 8px 8px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+        .modal-header-custom h4 {
+            margin: 0;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+    .modal-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+        .modal-close:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+    .modal-body-custom {
+        padding: 25px;
+    }
+
+        .modal-body-custom p {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .modal-body-custom .warning-box {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+
+            .modal-body-custom .warning-box i {
+                color: #856404;
+                margin-right: 10px;
+            }
+
+            .modal-body-custom .warning-box strong {
+                color: #856404;
+            }
+
+    .modal-footer-custom {
+        padding: 20px 25px;
+        background-color: #f8f9fa;
+        border-radius: 0 0 8px 8px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+</style>
+
+<!-- Başarı/Hata Mesajları -->
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert-custom alert-success">
+        <i class="fas fa-check-circle" style="font-size: 20px;"></i>
+        <span>@TempData["SuccessMessage"]</span>
+    </div>
+}
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert-custom alert-danger">
+        <i class="fas fa-exclamation-triangle" style="font-size: 20px;"></i>
+        <span>@TempData["ErrorMessage"]</span>
+    </div>
+}
+
+<!-- İstatistik Kartları -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-users"></i>
+        </div>
+        <div class="stat-label">Toplam Üye</div>
+        <div class="stat-value">@Model.Count</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-user-check"></i>
+        </div>
+        <div class="stat-label">Aktif Üyeler</div>
+        <div class="stat-value">@Model.Count(m => m.AppointmentCount > 0)</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-calendar-check"></i>
+        </div>
+        <div class="stat-label">Toplam Randevu</div>
+        <div class="stat-value">@Model.Sum(m => m.AppointmentCount)</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-robot"></i>
+        </div>
+        <div class="stat-label">AI Öneri</div>
+        <div class="stat-value">@Model.Sum(m => m.AIRecommendationCount)</div>
+    </div>
+</div>
+
+<!-- Üyeler Tablosu -->
+@if (Model != null && Model.Any())
+{
+    <div class="member-table-wrapper">
+        <div class="table-header">
+            <h3>
+                <i class="fas fa-list"></i>
+                Kayıtlı Üyeler (@Model.Count)
+            </h3>
+           
+        </div>
+
+        <table class="member-table">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>Üye Adı</th>
+                    <th>İletişim</th>
+                    <th>Fiziksel Bilgiler</th>
+                    <th style="text-align: center;">İstatistikler</th>
+                    <th style="text-align: center; width: 180px;">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var member in Model)
+                {
+                    <tr>
+                        <td>
+                            <strong style="color: #FF8C42; font-size: 16px;">@member.Id</strong>
+                        </td>
+                        <td>
+                            <div class="member-name">@member.FullName</div>
+                            <div class="member-info">
+                                <i class="fas fa-calendar"></i>
+                                <span>Yaş: @(member.Age ?? 0)</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="member-info">
+                                <i class="fas fa-envelope"></i>
+                                <span>@member.Email</span>
+                            </div>
+                            <div class="member-info">
+                                <i class="fas fa-phone"></i>
+                                <span>@member.PhoneNumber</span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="member-info">
+                                <i class="fas fa-venus-mars"></i>
+                                <span class="badge-custom @(member.Gender == "Male" ? "badge-gender-male" : "badge-gender-female")">
+                                    @(member.Gender == "Male" ? "Erkek" : "Kadın")
+                                </span>
+                            </div>
+                            <div class="member-info">
+                                <i class="fas fa-ruler-vertical"></i>
+                                <span>Boy: @member.Height cm</span>
+                            </div>
+                            <div class="member-info">
+                                <i class="fas fa-weight"></i>
+                                <span>Kilo: @member.Weight kg</span>
+                            </div>
+                        </td>
+                        <td style="text-align: center;">
+                            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+                                <span class="badge-custom badge-count" title="Randevu Sayısı">
+                                    <i class="fas fa-calendar"></i>
+                                    @member.AppointmentCount Randevu
+                                </span>
+                                <span class="badge-custom badge-count" title="AI Öneri Sayısı">
+                                    <i class="fas fa-robot"></i>
+                                    @member.AIRecommendationCount AI Öneri
+                                </span>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="action-buttons">
+                                <a asp-controller="AdminMemberManagement"
+                                   asp-action="EditMember"
+                                   asp-route-id="@member.Id"
+                                   class="btn-action btn-edit"
+                                   title="Düzenle">
+                                    <i class="fas fa-edit"></i>
+                                    Düzenle
+                                </a>
+                                <button type="button"
+                                        class="btn-action btn-delete"
+                                        onclick="confirmDelete(@member.Id, '@member.FullName')"
+                                        title="Sil">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Sil
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="member-table-wrapper">
+        <div class="empty-state">
+            <i class="fas fa-users"></i>
+            <h3>Henüz kayıtlı üye bulunmamaktadır</h3>
+           
+        </div>
+    </div>
+}
+
+<!-- Silme Onay Modal -->
+<div id="deleteModal" class="modal-overlay">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <h4>
+                <i class="fas fa-exclamation-triangle"></i>
+                Silme Onayı
+            </h4>
+            <button type="button" class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body-custom">
+            <p>
+                <strong id="memberName" style="color: #FF8C42; font-size: 18px;"></strong>
+                adlı üyeyi silmek istediğinizden emin misiniz?
+            </p>
+            <div class="warning-box">
+                <i class="fas fa-info-circle"></i>
+                <strong>Dikkat:</strong> Bu işlem geri alınamaz! Üyenin tüm randevuları ve AI önerileri silinecektir.
+            </div>
+        </div>
+        <div class="modal-footer-custom">
+            <button type="button" class="btn-action" style="background-color: #6c757d; color: white;" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+                İptal
+            </button>
+            <form id="deleteForm" method="post" asp-controller="AdminMemberManagement" asp-action="DeleteMember" style="display: inline; margin: 0;">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="id" id="memberIdToDelete" />
+                <button type="submit" class="btn-action btn-delete">
+                    <i class="fas fa-trash-alt"></i>
+                    Evet, Sil
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function confirmDelete(memberId, memberName) {
+            document.getElementById('memberName').textContent = memberName;
+            document.getElementById('memberIdToDelete').value = memberId;
+            document.getElementById('deleteModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.getElementById('deleteModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('.alert-custom');
+            alerts.forEach(function(alert) {
+                alert.style.animation = 'fadeOut 0.5s ease';
+                setTimeout(function() {
+                    alert.remove();
+                }, 500);
+            });
+        }, 5000);
+    </script>
+}

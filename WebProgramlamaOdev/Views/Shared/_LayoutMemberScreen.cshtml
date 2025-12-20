@@ -172,29 +172,34 @@
 <body>
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="@Url.Action("Index", "Member")" class="navbar-brand">
+            <a asp-controller="MemberHome" asp-action="Index" class="navbar-brand">
                 <i class="fas fa-dumbbell"></i>
                 Fitness Center
             </a>
 
             <div class="navbar-menu">
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">
-                    <i class="fas fa-home"></i>
-                    Ana Sayfa
-                </a>
-                <a  class="navbar-link">
+                
+                <a asp-controller="MemberAppointmentManagement" asp-action="Create" class="navbar-link">
                     <i class="fas fa-calendar-plus"></i>
                     Randevu Al
                 </a>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">
-                    <i class="fas fa-clock"></i>
-                    Salon Müsaitlik
+
+                <a asp-area="" asp-controller="MemberTrainer" asp-action="Index" class="navbar-link">
+                    <i class="fas fa-users"></i>
+                    Eğitmenler
                 </a>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">
+
+                <a asp-area="" asp-controller="MemberAIRecommendation" asp-action="Index" class="navbar-link">
+                    <i class="fas fa-robot"></i>
+                    AI Goruntu
+                </a>
+
+                <a asp-area="" asp-controller="MemberAIPlan" asp-action="Index" class="navbar-link">
                     <i class="fas fa-robot"></i>
                     AI Program
                 </a>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-link">
+
+                <a asp-area="" asp-controller="MemberAppointmentManagement" asp-action="Index" class="navbar-link">
                     <i class="fas fa-list"></i>
                     Randevularım
                 </a>
@@ -220,6 +225,8 @@
     <footer>
         &copy; 2025 Fitness Center - Tüm Hakları Saklıdır
     </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)

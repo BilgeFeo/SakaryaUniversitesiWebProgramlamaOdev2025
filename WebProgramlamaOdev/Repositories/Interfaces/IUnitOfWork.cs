@@ -1,4 +1,5 @@
-﻿using WebProgramlamaOdev.Repositories.Interfaces;
+﻿using WebProgramlamaOdev.Data;
+using WebProgramlamaOdev.Repositories.Interfaces;
 
 namespace WebProgramlamaOdev.Repositories.Interfaces
 {
@@ -6,7 +7,12 @@ namespace WebProgramlamaOdev.Repositories.Interfaces
     /// Unit of Work Pattern - Transaction management ve tüm repository'leri yönetir
     /// </summary>
     public interface IUnitOfWork : IDisposable
+
+        
     {
+
+
+        ApplicationDbContext Context { get; }
         // Repository Properties
         IMemberRepository Members { get; }
         ITrainerRepository Trainers { get; }

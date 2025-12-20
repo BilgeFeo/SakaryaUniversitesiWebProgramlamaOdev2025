@@ -1,0 +1,164 @@
+﻿@model WebProgramlamaOdev.ViewModels.AIPlanRequestViewModel
+
+@{
+    ViewData["Title"] = "AI Beslenme ve Spor Planı";
+    Layout = "_LayoutMemberScreen";
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary"><i class="fas fa-brain me-2"></i>AI Kişisel Koç</h2>
+        <p class="text-muted">Vücut ölçülerini gir, yapay zeka sana özel beslenme ve antrenman programını saniyeler içinde oluştursun.</p>
+    </div>
+
+    <div class="row g-5">
+
+        <div class="col-lg-4">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white p-3">
+                    <h5 class="mb-0"><i class="fas fa-sliders-h me-2"></i>Bilgilerin</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Generate" method="post">
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Yaş</label>
+                                <input asp-for="Age" class="form-control" type="number" required />
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label fw-bold">Cinsiyet</label>
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="Erkek">Erkek</option>
+                                    <option value="Kadın">Kadın</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Boy (cm)</label>
+                            <input asp-for="Height" class="form-control" type="number" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Kilo (kg)</label>
+                            <input asp-for="Weight" class="form-control" type="number" step="0.1" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Hedefin</label>
+                            <select asp-for="Goal" class="form-select">
+                                <option value="Kilo Vermek">Kilo Vermek (Yağ Yakımı)</option>
+                                <option value="Kilo Almak">Kilo Almak (Hacim)</option>
+                                <option value="Kas Yapmak">Kas Kütlesini Artırmak</option>
+                                <option value="Formu Korumak">Formu Korumak</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Aktivite Seviyesi</label>
+                            <select asp-for="ActivityLevel" class="form-select">
+                                <option value="Düşük">Düşük (Masa başı iş, az hareket)</option>
+                                <option value="Orta">Orta (Haftada 2-3 gün spor)</option>
+                                <option value="Yüksek">Yüksek (Haftada 4+ gün spor)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-warning w-100 py-2 fw-bold text-dark">
+                            <i class="fas fa-magic me-2"></i>Planı Oluştur
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            @if (Model.Result != null)
+            {
+                <div class="row g-4 fade-in">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-success shadow-sm">
+                            <div class="card-header bg-success text-white">
+                                <h5 class="mb-0"><i class="fas fa-carrot me-2"></i>Beslenme Programı</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-text">
+                                    @Html.Raw(Model.Result.DietPlan)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 border-danger shadow-sm">
+                            <div class="card-header bg-danger text-white">
+                                <h5 class="mb-0"><i class="fas fa-dumbbell me-2"></i>Antrenman Programı</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-text">
+                                    @Html.Raw(Model.Result.WorkoutPlan)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="alert alert-info shadow-sm border-0">
+                            <h5 class="alert-heading"><i class="fas fa-lightbulb me-2"></i>Koçun Tavsiyeleri</h5>
+                            <hr>
+                            <div>@Html.Raw(Model.Result.Recommendations)</div>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    // Sonuç geldiyse sayfayı oraya kaydır
+                    document.addEventListener("DOMContentLoaded", function() {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    });
+                </script>
+            }
+            else
+            {
+                <div class="text-center py-5 text-muted opacity-50">
+                    <i class="fas fa-clipboard-list fa-5x mb-3"></i>
+                    <h3>Henüz bir plan oluşturulmadı.</h3>
+                    <p>Sol taraftaki formu doldurarak sana özel programı görebilirsin.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    .fade-in {
+        animation: fadeIn 1s ease-in-out;
+    }
+    @@keyframes fadeIn {
+        from
+
+    {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    }
+    /* AI'dan gelen HTML listeleri için stil */
+    ul {
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 8px;
+    }
+
+    strong {
+        color: #333;
+    }
+</style>

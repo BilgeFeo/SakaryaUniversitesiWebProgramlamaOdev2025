@@ -5,7 +5,7 @@ using WebProgramlamaOdev.ViewModels;
 
 namespace WebProgramlamaOdev.Controllers.AdminPageControllers
 {
-   
+    [Authorize(Roles = "Gym")]
     public class AdminAppointmentManagementController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

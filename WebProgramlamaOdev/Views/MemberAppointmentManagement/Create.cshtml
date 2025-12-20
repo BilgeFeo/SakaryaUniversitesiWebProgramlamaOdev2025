@@ -1,0 +1,197 @@
+﻿@model WebProgramlamaOdev.ViewModels.CreateAppointmentViewModel
+
+@{
+    ViewData["Title"] = "Yeni Randevu Al";
+    Layout = "_LayoutMemberScreen";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0"><i class="fas fa-calendar-plus me-2"></i>Yeni Randevu Oluştur</h3>
+                </div>
+                <div class="card-body p-4">
+
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-triangle me-2"></i> @TempData["ErrorMessage"]
+                        </div>
+                    }
+
+                    <form asp-action="Create" method="post" id="appointmentForm">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-4">
+                            <label asp-for="TrainerId" class="form-label fw-bold">
+                                <i class="fas fa-user-tie text-primary me-2"></i>Antrenör Seçiniz
+                            </label>
+                            <select asp-for="TrainerId" class="form-select form-select-lg" asp-items="Model.Trainers">
+                                <option value="">-- Lütfen Önce Antrenör Seçin --</option>
+                            </select>
+                            <span asp-validation-for="TrainerId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="ServiceTypeId" class="form-label fw-bold">
+                                <i class="fas fa-dumbbell text-primary me-2"></i>Hizmet Seçiniz
+                            </label>
+                            <select asp-for="ServiceTypeId" class="form-select" disabled>
+                                <option value="">-- Önce Antrenör Seçiniz --</option>
+                            </select>
+                            <span asp-validation-for="ServiceTypeId" class="text-danger"></span>
+                            <div id="serviceInfo" class="form-text text-info mt-2" style="display:none;">
+                                <i class="fas fa-info-circle"></i>
+                                <span id="durationBadge" class="badge bg-secondary me-2"></span>
+                                <span id="priceBadge" class="badge bg-success"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="AppointmentDate" class="form-label fw-bold">
+                                    <i class="fas fa-calendar-alt text-primary me-2"></i>Tarih
+                                </label>
+                                <input asp-for="AppointmentDate" class="form-control" type="date"
+                                       min="@DateTime.Today.AddDays(1).ToString("yyyy-MM-dd")" />
+                                <span asp-validation-for="AppointmentDate" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-4">
+                                <label asp-for="StartTime" class="form-label fw-bold">
+                                    <i class="fas fa-clock text-primary me-2"></i>Başlangıç Saati
+                                </label>
+                                <input asp-for="StartTime" class="form-control" type="time"
+                                       min="09:00" max="21:00" step="1800" /> <span asp-validation-for="StartTime" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-light border mb-4" id="summaryCard" style="display:none;">
+                            <h5 class="text-primary"><i class="fas fa-receipt me-2"></i>Randevu Özeti</h5>
+                            <hr>
+                            <div class="d-flex justify-content-between mb-2">
+                                <span>Tahmini Bitiş Saati:</span>
+                                <strong id="endTimeDisplay">-</strong>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Toplam Tutar:</span>
+                                <strong class="text-success fs-5" id="totalPriceDisplay">-</strong>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-check-circle me-2"></i>Randevuyu Oluştur
+                            </button>
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>İptal
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        $(document).ready(function () {
+
+            // Antrenör değiştiğinde Hizmetleri getir
+            $('#TrainerId').change(function () {
+                var trainerId = $(this).val();
+                var serviceDropdown = $('#ServiceTypeId');
+
+                serviceDropdown.empty().append('<option value="">-- Yükleniyor --</option>');
+                $('#serviceInfo').hide();
+                $('#summaryCard').hide();
+
+                if (trainerId) {
+                    $.ajax({
+                        url: '@Url.Action("GetServicesByTrainer", "MemberAppointmentManagement")',
+                        type: 'GET',
+                        data: { trainerId: trainerId },
+                        success: function (data) {
+                            serviceDropdown.empty().append('<option value="">-- Hizmet Seçiniz --</option>');
+
+                            $.each(data, function (index, item) {
+                                // data attribute'larına fiyat ve süreyi gömüyoruz
+                                serviceDropdown.append(
+                                    $('<option></option>')
+                                        .val(item.id)
+                                        .text(item.name)
+                                        .data('duration', item.duration)
+                                        .data('price', item.price)
+                                );
+                            });
+                            serviceDropdown.prop('disabled', false);
+                        },
+                        error: function () {
+                            alert('Hizmetler yüklenirken bir hata oluştu.');
+                            serviceDropdown.empty().append('<option value="">-- Hata --</option>');
+                        }
+                    });
+                } else {
+                    serviceDropdown.empty().append('<option value="">-- Önce Antrenör Seçiniz --</option>');
+                    serviceDropdown.prop('disabled', true);
+                }
+            });
+
+            // Hizmet değiştiğinde bilgi göster ve özeti güncelle
+            $('#ServiceTypeId').change(function () {
+                var selectedOption = $(this).find('option:selected');
+                var duration = selectedOption.data('duration');
+                var price = selectedOption.data('price');
+
+                if (duration && price) {
+                    $('#durationBadge').text(duration + ' Dakika');
+                    $('#priceBadge').text(price + ' ₺');
+                    $('#serviceInfo').fadeIn();
+                    calculateEndTime();
+                } else {
+                    $('#serviceInfo').hide();
+                    $('#summaryCard').hide();
+                }
+            });
+
+            // Saat değiştiğinde bitiş saatini hesapla
+            $('#StartTime').change(function () {
+                calculateEndTime();
+            });
+
+            function calculateEndTime() {
+                var startTimeVal = $('#StartTime').val(); // "14:30" formatında gelir
+                var selectedOption = $('#ServiceTypeId').find('option:selected');
+                var duration = selectedOption.data('duration'); // dakika (int)
+                var price = selectedOption.data('price');
+
+                if (startTimeVal && duration) {
+                    // Saati parçala
+                    var parts = startTimeVal.split(':');
+                    var hours = parseInt(parts[0]);
+                    var minutes = parseInt(parts[1]);
+
+                    // Dakika ekle
+                    var date = new Date();
+                    date.setHours(hours);
+                    date.setMinutes(minutes + duration);
+
+                    // Yeni saati formatla
+                    var endHours = date.getHours().toString().padStart(2, '0');
+                    var endMinutes = date.getMinutes().toString().padStart(2, '0');
+
+                    $('#endTimeDisplay').text(endHours + ':' + endMinutes);
+                    $('#totalPriceDisplay').text(price + ' ₺');
+                    $('#summaryCard').fadeIn();
+                }
+            }
+        });
+    </script>
+}

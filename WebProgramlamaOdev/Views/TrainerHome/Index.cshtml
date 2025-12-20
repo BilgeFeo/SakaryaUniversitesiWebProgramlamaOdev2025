@@ -1,0 +1,313 @@
+@model WebProgramlamaOdev.ViewModels.TrainerDashboardViewModel
+
+@{
+    ViewData["Title"] = "Ana Sayfa";
+    Layout = "_LayoutTrainerScreen";
+}
+
+<style>
+    .dashboard-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+    }
+
+    .stat-card {
+        background: white;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);
+    }
+
+    .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(255, 140, 66, 0.3);
+    }
+
+    .stat-icon {
+        font-size: 40px;
+        color: #FF8C42;
+        margin-bottom: 15px;
+    }
+
+    .stat-label {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .stat-value {
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .welcome-card {
+        background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);
+        color: white;
+        border-radius: 10px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 20px rgba(255, 140, 66, 0.3);
+    }
+
+    .welcome-card h2 {
+        margin: 0 0 10px 0;
+        font-size: 28px;
+    }
+
+    .welcome-card p {
+        margin: 0;
+        opacity: 0.95;
+        font-size: 16px;
+    }
+
+    .appointments-card {
+        background: white;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .appointments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #f0f0f0;
+    }
+
+    .appointments-header h3 {
+        color: #333;
+        font-size: 22px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .appointment-item {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 12px;
+        border-left: 4px solid #FF8C42;
+        transition: all 0.3s ease;
+    }
+
+    .appointment-item:hover {
+        background: #fff5f0;
+        transform: translateX(5px);
+    }
+
+    .appointment-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .appointment-info {
+        flex: 1;
+    }
+
+    .appointment-member {
+        font-weight: 600;
+        color: #333;
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+
+    .appointment-service {
+        color: #666;
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+
+    .appointment-datetime {
+        color: #FF8C42;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .appointment-status {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+
+    .status-confirmed {
+        background-color: #d4edda;
+        color: #155724;
+    }
+
+    .empty-appointments {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+    }
+
+    .empty-appointments i {
+        font-size: 60px;
+        color: #FFB380;
+        margin-bottom: 15px;
+    }
+
+    .btn-view-all {
+        background: #FF8C42;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
+
+    .btn-view-all:hover {
+        background: #e67a2e;
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    @@media (max-width: 768px) {
+        .appointment-row {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .appointment-status {
+            margin-top: 10px;
+        }
+    }
+</style>
+
+<!-- Welcome Card -->
+<div class="welcome-card">
+    <h2>
+        <i class="fas fa-hand-wave"></i>
+        Hoş Geldiniz, @Model.TrainerName!
+    </h2>
+    <p>
+        <i class="fas fa-building"></i>
+        @Model.GymName | 
+        <i class="fas fa-star"></i>
+        @Model.Specialization
+    </p>
+</div>
+
+<!-- Dashboard Stats -->
+<div class="dashboard-stats">
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-briefcase"></i>
+        </div>
+        <div class="stat-label">Toplam Hizmet</div>
+        <div class="stat-value">@Model.TotalServices</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-calendar-alt"></i>
+        </div>
+        <div class="stat-label">Toplam Randevu</div>
+        <div class="stat-value">@Model.TotalAppointments</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        <div class="stat-label">Bekleyen Randevu</div>
+        <div class="stat-value">@Model.PendingAppointments</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-calendar-day"></i>
+        </div>
+        <div class="stat-label">Bugünkü Randevu</div>
+        <div class="stat-value">@Model.TodayAppointments</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="stat-label">Onaylı Randevu</div>
+        <div class="stat-value">@Model.ConfirmedAppointments</div>
+    </div>
+</div>
+
+<!-- Upcoming Appointments -->
+<div class="appointments-card">
+    <div class="appointments-header">
+        <h3>
+            <i class="fas fa-calendar-check"></i>
+            Yaklaşan Randevular
+        </h3>
+        <a asp-controller="TrainerAppointment" asp-action="ShowAppointments" class="btn-view-all">
+            <i class="fas fa-eye"></i>
+            Tümünü Gör
+        </a>
+    </div>
+
+    @if (Model.UpcomingAppointments != null && Model.UpcomingAppointments.Any())
+    {
+        @foreach (var appointment in Model.UpcomingAppointments)
+        {
+            <div class="appointment-item">
+                <div class="appointment-row">
+                    <div class="appointment-info">
+                        <div class="appointment-member">
+                            <i class="fas fa-user"></i>
+                            @appointment.MemberName
+                        </div>
+                        <div class="appointment-service">
+                            <i class="fas fa-dumbbell"></i>
+                            @appointment.ServiceName (@appointment.Price.ToString("C2"))
+                        </div>
+                        <div class="appointment-datetime">
+                            <i class="fas fa-calendar"></i>
+                            @appointment.AppointmentDate.ToString("dd MMMM yyyy, dddd")
+                            <i class="fas fa-clock"></i>
+                            @appointment.StartTime.ToString(@"hh\:mm") - @appointment.EndTime.ToString(@"hh\:mm")
+                        </div>
+                    </div>
+                    <span class="appointment-status @(appointment.Status == "Confirmed" ? "status-confirmed" : "status-pending")">
+                        @(appointment.Status == "Pending" ? "Bekliyor" : "Onaylandı")
+                    </span>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="empty-appointments">
+            <i class="fas fa-calendar-times"></i>
+            <p>Yaklaşan randevunuz bulunmamaktadır.</p>
+        </div>
+    }
+</div>

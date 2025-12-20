@@ -1,0 +1,152 @@
+﻿@model WebProgramlamaOdev.ViewModels.AIBodyAnalysisViewModel
+@using System.Text.Json
+
+@{
+    ViewData["Title"] = "AI Vücut Tahmini";
+    Layout = "_LayoutMemberScreen";
+}
+
+<div class="container py-4">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary"><i class="fas fa-magic me-2"></i>AI Vücut Dönüştürücü</h2>
+        <p class="text-muted">Fotoğrafını yükle, hedefini seç ve yapay zekanın potansiyelini göstermesine izin ver!</p>
+    </div>
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+    }
+
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-primary text-white p-3">
+                    <h5 class="mb-0"><i class="fas fa-camera me-2"></i>Yeni Analiz Başlat</h5>
+                </div>
+                <div class="card-body p-4">
+                    <form asp-action="Analyze" method="post" enctype="multipart/form-data">
+                        @Html.AntiForgeryToken()
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">Fotoğrafınız</label>
+                            <input asp-for="UploadedImage" type="file" class="form-control" accept="image/*" required>
+                            <div class="form-text">Boydan veya üst vücut fotoğrafı yüklemeniz önerilir.</div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold d-block mb-2">Hedef Antrenman Yoğunluğu</label>
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <input type="radio" class="btn-check" name="SelectedIntensity" id="light" value="Light" checked>
+                                    <label class="btn btn-outline-success w-100 h-100 p-3" for="light">
+                                        <i class="fas fa-walking fa-2x mb-2"></i><br>
+                                        <strong>Hafif</strong><br>
+                                        <small>Fit & Sıkı</small>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="radio" class="btn-check" name="SelectedIntensity" id="medium" value="Medium">
+                                    <label class="btn btn-outline-warning w-100 h-100 p-3" for="medium">
+                                        <i class="fas fa-dumbbell fa-2x mb-2"></i><br>
+                                        <strong>Orta</strong><br>
+                                        <small>Atletik & Kaslı</small>
+                                    </label>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="radio" class="btn-check" name="SelectedIntensity" id="heavy" value="Heavy">
+                                    <label class="btn btn-outline-danger w-100 h-100 p-3" for="heavy">
+                                        <i class="fas fa-trophy fa-2x mb-2"></i><br>
+                                        <strong>Ağır</strong><br>
+                                        <small>Vücut Geliştirme</small>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary w-100 btn-lg">
+                            <i class="fas fa-wand-magic-sparkles me-2"></i>Dönüştür
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Model.IsProcessed)
+    {
+        <div class="row justify-content-center mb-5" id="resultArea">
+            <div class="col-md-10">
+                <div class="card border-success shadow">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Sonuç Hazır!</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row align-items-center">
+                            <div class="col-md-5">
+                                <h6>Orijinal</h6>
+                                <img src="@Model.ResultOriginalImage" class="img-fluid rounded border" style="max-height: 400px;">
+                            </div>
+                            <div class="col-md-2 my-3">
+                                <i class="fas fa-arrow-right fa-3x text-success d-none d-md-block"></i>
+                                <i class="fas fa-arrow-down fa-3x text-success d-block d-md-none"></i>
+                            </div>
+                            <div class="col-md-5">
+                                <h6>AI Tahmini (@Model.SelectedIntensity)</h6>
+                                <img src="@Model.ResultGeneratedImage" class="img-fluid rounded border border-3 border-success" style="max-height: 400px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            // Sonuç varsa oraya kaydır
+            document.getElementById("resultArea").scrollIntoView({ behavior: 'smooth' });
+        </script>
+    }
+
+    <hr class="my-5">
+    <h3 class="mb-4"><i class="fas fa-history me-2"></i>Geçmiş Analizlerim</h3>
+
+    @if (Model.PreviousAnalyses != null && Model.PreviousAnalyses.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            @foreach (var item in Model.PreviousAnalyses)
+            {
+                // InputData JSON'ını parse edip orijinal resmi buluyoruz
+                string originalImg = "";
+                string intensity = "";
+                try
+                {
+                    var data = JsonDocument.Parse(item.InputData).RootElement;
+                    if (data.TryGetProperty("OriginalImage", out var imgElement)) originalImg = imgElement.GetString();
+                    if (data.TryGetProperty("Intensity", out var intElement)) intensity = intElement.GetString();
+                }
+                catch { }
+
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body p-2">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="badge bg-info text-dark">@intensity</span>
+                                <small class="text-muted">@item.CreatedDate.ToString("dd.MM.yyyy")</small>
+                            </div>
+                            <div class="d-flex gap-1">
+                                <img src="@originalImg" class="w-50 rounded" style="height: 120px; object-fit: cover;">
+                                <img src="@item.GeneratedImagePath" class="w-50 rounded" style="height: 120px; object-fit: cover;">
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white border-0 text-center">
+                            <small class="text-muted">Önce / Sonra</small>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-light text-center">Henüz geçmiş bir analiziniz bulunmuyor.</div>
+    }
+</div>
