@@ -4766,11 +4766,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\aalis\\Desktop\\B231210033_WebProgramlama_Odev\\WebProgramlamaOdev\\WebProgramlamaOdev\\WebProgramlamaOdev.csproj",
+      "projectUniqueName": "C:\\Users\\aalis\\Desktop\\deneme\\WebProgramlamaOdev\\WebProgramlamaOdev.csproj",
       "projectName": "WebProgramlamaOdev",
-      "projectPath": "C:\\Users\\aalis\\Desktop\\B231210033_WebProgramlama_Odev\\WebProgramlamaOdev\\WebProgramlamaOdev\\WebProgramlamaOdev.csproj",
+      "projectPath": "C:\\Users\\aalis\\Desktop\\deneme\\WebProgramlamaOdev\\WebProgramlamaOdev.csproj",
       "packagesPath": "C:\\Users\\aalis\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\aalis\\Desktop\\B231210033_WebProgramlama_Odev\\WebProgramlamaOdev\\WebProgramlamaOdev\\obj\\",
+      "outputPath": "C:\\Users\\aalis\\Desktop\\deneme\\WebProgramlamaOdev\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

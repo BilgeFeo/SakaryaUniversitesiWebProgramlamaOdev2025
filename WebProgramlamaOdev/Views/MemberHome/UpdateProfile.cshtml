@@ -1,0 +1,141 @@
+﻿@model WebProgramlamaOdev.ViewModels.MemberProfileUpdateViewModel
+
+@{
+    ViewData["Title"] = "Profili Güncelle";
+    Layout = "_LayoutMemberScreen";
+}
+
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-header bg-gradient text-white p-4" style="background: linear-gradient(135deg, #FF8C42 0%, #FFB380 100%);">
+                    <h4 class="mb-0"><i class="fas fa-user-edit me-2"></i>Bilgilerimi Güncelle</h4>
+                </div>
+                <div class="card-body p-4">
+
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                        </div>
+                    }
+
+                    <form asp-action="UpdateProfile" method="post">
+                        <ul class="nav nav-tabs mb-4" id="profileTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active fw-bold" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab">Kişisel Bilgiler</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link fw-bold" id="physical-tab" data-bs-toggle="tab" data-bs-target="#physical" type="button" role="tab">Fiziksel Özellikler</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link fw-bold text-danger" id="security-tab" data-bs-toggle="tab" data-bs-target="#security" type="button" role="tab">Şifre Değiştir</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="profileTabsContent">
+
+                            <div class="tab-pane fade show active" id="personal" role="tabpanel">
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="FirstName" class="form-label fw-bold">Ad</label>
+                                        <input asp-for="FirstName" class="form-control" />
+                                        <span asp-validation-for="FirstName" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="LastName" class="form-label fw-bold">Soyad</label>
+                                        <input asp-for="LastName" class="form-control" />
+                                        <span asp-validation-for="LastName" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Email" class="form-label fw-bold">E-posta</label>
+                                        <input asp-for="Email" class="form-control" />
+                                        <span asp-validation-for="Email" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="PhoneNumber" class="form-label fw-bold">Telefon</label>
+                                        <input asp-for="PhoneNumber" class="form-control" />
+                                        <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="physical" role="tabpanel">
+                                <div class="alert alert-info small">
+                                    <i class="fas fa-info-circle me-1"></i> Bu bilgiler AI planlaması için kullanılır.
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="Height" class="form-label fw-bold">Boy (cm)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-ruler-vertical"></i></span>
+                                            <input asp-for="Height" class="form-control" type="number" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Weight" class="form-label fw-bold">Kilo (kg)</label>
+                                        <div class="input-group">
+                                            <span class="input-group-text"><i class="fas fa-weight"></i></span>
+                                            <input asp-for="Weight" class="form-control" type="number" step="0.1" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="DateOfBirth" class="form-label fw-bold">Doğum Tarihi</label>
+                                        <input asp-for="DateOfBirth" class="form-control" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="Gender" class="form-label fw-bold">Cinsiyet</label>
+                                        <select asp-for="Gender" class="form-select">
+                                            <option value="Erkek">Erkek</option>
+                                            <option value="Kadın">Kadın</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="tab-pane fade" id="security" role="tabpanel">
+                                <div class="alert alert-warning small">
+                                    <i class="fas fa-lock me-1"></i> Şifrenizi değiştirmek istemiyorsanız bu alanları boş bırakın.
+                                </div>
+                                <div class="mb-3">
+                                    <label asp-for="CurrentPassword" class="form-label fw-bold">Mevcut Şifre</label>
+                                    <input asp-for="CurrentPassword" class="form-control" placeholder="Değişiklik için mevcut şifrenizi girin" />
+                                </div>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label asp-for="NewPassword" class="form-label fw-bold">Yeni Şifre</label>
+                                        <input asp-for="NewPassword" class="form-control" />
+                                        <span asp-validation-for="NewPassword" class="text-danger small"></span>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label asp-for="ConfirmNewPassword" class="form-label fw-bold">Yeni Şifre (Tekrar)</label>
+                                        <input asp-for="ConfirmNewPassword" class="form-control" />
+                                        <span asp-validation-for="ConfirmNewPassword" class="text-danger small"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a asp-action="Index" class="btn btn-outline-secondary">
+                                <i class="fas fa-arrow-left me-1"></i> İptal
+                            </a>
+                            <button type="submit" class="btn btn-success px-4 py-2 fw-bold">
+                                <i class="fas fa-save me-1"></i> Değişiklikleri Kaydet
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

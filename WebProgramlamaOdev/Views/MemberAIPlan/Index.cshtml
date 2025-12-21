@@ -6,22 +6,28 @@
 }
 
 <div class="container py-5">
-
     <div class="text-center mb-5">
         <h2 class="fw-bold text-primary"><i class="fas fa-brain me-2"></i>AI Kişisel Koç</h2>
         <p class="text-muted">Vücut ölçülerini gir, yapay zeka sana özel beslenme ve antrenman programını saniyeler içinde oluştursun.</p>
     </div>
 
     <div class="row g-5">
-
         <div class="col-lg-4">
             <div class="card shadow-lg border-0">
                 <div class="card-header bg-primary text-white p-3">
                     <h5 class="mb-0"><i class="fas fa-sliders-h me-2"></i>Bilgilerin</h5>
                 </div>
                 <div class="card-body p-4">
-                    <form asp-action="Generate" method="post">
 
+                    @if (!ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert alert-danger">
+                            <h6><i class="fas fa-exclamation-triangle"></i> Bir Sorun Oluştu:</h6>
+                            <div asp-validation-summary="All" class="text-danger small mb-0"></div>
+                        </div>
+                    }
+
+                    <form asp-action="Generate" method="post">
                         <div class="row mb-3">
                             <div class="col-6">
                                 <label class="form-label fw-bold">Yaş</label>
@@ -65,7 +71,8 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-warning w-100 py-2 fw-bold text-dark">
+                        <button type="submit" class="btn btn-warning w-100 py-2 fw-bold text-dark"
+                                onclick="this.disabled=true; this.innerHTML='<i class=\'fas fa-spinner fa-spin\'></i> Hazırlanıyor...'; this.form.submit();">
                             <i class="fas fa-magic me-2"></i>Planı Oluştur
                         </button>
                     </form>
@@ -113,9 +120,8 @@
                 </div>
 
                 <script>
-                    // Sonuç geldiyse sayfayı oraya kaydır
                     document.addEventListener("DOMContentLoaded", function() {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                         window.scrollTo({ top: 0, behavior: 'smooth' });
                     });
                 </script>
             }
@@ -132,33 +138,8 @@
 </div>
 
 <style>
-    .fade-in {
-        animation: fadeIn 1s ease-in-out;
-    }
-    @@keyframes fadeIn {
-        from
-
-    {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    }
-    /* AI'dan gelen HTML listeleri için stil */
-    ul {
-        padding-left: 20px;
-    }
-
-    li {
-        margin-bottom: 8px;
-    }
-
-    strong {
-        color: #333;
-    }
+    .fade-in { animation: fadeIn 1s ease-in-out; }
+    @@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    ul { padding-left: 20px; }
+    li { margin-bottom: 8px; }
 </style>

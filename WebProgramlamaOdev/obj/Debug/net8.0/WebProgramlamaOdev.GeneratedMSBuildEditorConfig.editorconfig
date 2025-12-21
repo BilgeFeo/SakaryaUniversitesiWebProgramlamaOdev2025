@@ -9,161 +9,165 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = WebProgramlamaOdev
 build_property.RootNamespace = WebProgramlamaOdev
-build_property.ProjectDir = C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProgramlamaOdev\
+build_property.ProjectDir = C:\Users\aalis\Desktop\deneme\WebProgramlamaOdev\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\aalis\Desktop\B231210033_WebProgramlama_Odev\WebProgramlamaOdev\WebProgramlamaOdev
+build_property.MSBuildProjectDirectory = C:\Users\aalis\Desktop\deneme\WebProgramlamaOdev
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminAppointmentManagement/AppointmentDetails.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminAppointmentManagement/AppointmentDetails.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BcHBvaW50bWVudE1hbmFnZW1lbnRcQXBwb2ludG1lbnREZXRhaWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminAppointmentManagement/ShowAppointments.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminAppointmentManagement/ShowAppointments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5BcHBvaW50bWVudE1hbmFnZW1lbnRcU2hvd0FwcG9pbnRtZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/CreateGym.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminHome/CreateGym.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXENyZWF0ZUd5bS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/EditGym.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminHome/EditGym.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXEVkaXRHeW0uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminHome/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminHome/ShowGyms.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminHome/ShowGyms.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5Ib21lXFNob3dHeW1zLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminMemberManagement/EditMember.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminMemberManagement/EditMember.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5NZW1iZXJNYW5hZ2VtZW50XEVkaXRNZW1iZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminMemberManagement/ShowMembers.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminMemberManagement/ShowMembers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5NZW1iZXJNYW5hZ2VtZW50XFNob3dNZW1iZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminServiceManagement/CreateService.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminServiceManagement/CreateService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZXJ2aWNlTWFuYWdlbWVudFxDcmVhdGVTZXJ2aWNlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminServiceManagement/EditService.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminServiceManagement/EditService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZXJ2aWNlTWFuYWdlbWVudFxFZGl0U2VydmljZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminServiceManagement/ShowServices.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminServiceManagement/ShowServices.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5TZXJ2aWNlTWFuYWdlbWVudFxTaG93U2VydmljZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminTrainerManagement/CreateTrainer.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminTrainerManagement/CreateTrainer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UcmFpbmVyTWFuYWdlbWVudFxDcmVhdGVUcmFpbmVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminTrainerManagement/EditTrainer.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminTrainerManagement/EditTrainer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UcmFpbmVyTWFuYWdlbWVudFxFZGl0VHJhaW5lci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/AdminTrainerManagement/ShowTrainers.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/AdminTrainerManagement/ShowTrainers.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5UcmFpbmVyTWFuYWdlbWVudFxTaG93VHJhaW5lcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Home/CreateAccount.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Home/CreateAccount.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDcmVhdGVBY2NvdW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Home/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Home/TriesAccountCreation.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Home/TriesAccountCreation.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUcmllc0FjY291bnRDcmVhdGlvbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Home/UserLoginAttempt.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Home/UserLoginAttempt.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxVc2VyTG9naW5BdHRlbXB0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAIPlan/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberAIPlan/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQUlQbGFuXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAIRecommendation/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberAIRecommendation/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQUlSZWNvbW1lbmRhdGlvblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAppointmentManagement/Create.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberAppointmentManagement/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQXBwb2ludG1lbnRNYW5hZ2VtZW50XENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberAppointmentManagement/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberAppointmentManagement/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyQXBwb2ludG1lbnRNYW5hZ2VtZW50XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberHome/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberHome/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVySG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/MemberTrainer/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberHome/UpdateProfile.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVySG9tZVxVcGRhdGVQcm9maWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/MemberTrainer/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyVHJhaW5lclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/Error.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_LayoutAdminScreen.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Shared/_LayoutAdminScreen.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pblNjcmVlbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_LayoutMemberScreen.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Shared/_LayoutMemberScreen.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRNZW1iZXJTY3JlZW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_LayoutTrainerScreen.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Shared/_LayoutTrainerScreen.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRUcmFpbmVyU2NyZWVuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerAccountManagement/UpdateProfile.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/TrainerAccountManagement/UpdateProfile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckFjY291bnRNYW5hZ2VtZW50XFVwZGF0ZVByb2ZpbGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerAppointmentManagement/ShowAppointments.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/TrainerAppointmentManagement/ShowAppointments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckFwcG9pbnRtZW50TWFuYWdlbWVudFxTaG93QXBwb2ludG1lbnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerHome/Index.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/TrainerHome/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckhvbWVcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerHome/ShowAppointments.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/TrainerHome/ShowAppointments.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lckhvbWVcU2hvd0FwcG9pbnRtZW50cy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/TrainerServiceManagement/ShowServices.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/TrainerServiceManagement/ShowServices.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhaW5lclNlcnZpY2VNYW5hZ2VtZW50XFNob3dTZXJ2aWNlcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/_ViewImports.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/_ViewStart.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/aalis/Desktop/B231210033_WebProgramlama_Odev/WebProgramlamaOdev/WebProgramlamaOdev/Views/Shared/_Layout.cshtml]
+[C:/Users/aalis/Desktop/deneme/WebProgramlamaOdev/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-dy1cvu7nt8
